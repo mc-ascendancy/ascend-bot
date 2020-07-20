@@ -8,9 +8,7 @@ import os
 # import discord
 from discord.ext import commands
 import logging
-
-
-# look at line 75
+# see line 71
 
 
 def logging_setup():
@@ -106,12 +104,14 @@ async def ping(ctx):
 # closes the bot (only bot owners)
 @bot.command(hidden=True)
 async def cease(ctx):
-    if await bot.is_owner(ctx.author):
-        await ctx.send("Farewell...")
-        print("Done.")
+    if not await bot.is_owner(ctx.author):
+        return
 
-        await bot.close()
-        sys.exit()
+    await ctx.send("Farewell...")
+    print("Done.")
+
+    await bot.close()
+    sys.exit()
 
 
 bot.run(TOKEN)
