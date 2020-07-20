@@ -82,7 +82,7 @@ text_3 = discord.Embed(
 # text_4
 text_4 = discord.Embed(
     description="<#734099995392868352>: A channel for those who prefer"
-                " to text chat.                 \n"
+                " to text chat.\n"
                 "General: A voice channel for general discussion.\n"
                 "Specific: A voice channel for user-made bots.\n"
                 "Music: Raise the roof.\n"
