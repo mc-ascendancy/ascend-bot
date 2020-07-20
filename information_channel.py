@@ -138,7 +138,8 @@ text_5 = discord.Embed(
 
 # text_6
 text_6 = discord.Embed(
-    description="<@&734418804490240061>s are extremely generous "
+    description="Those with the <@&734418804490240061> role are "
+                "extremely generous "
                 "members of our community "
                 "who have been so kind as to give the "
                 "Discord server additional "
@@ -152,7 +153,7 @@ text_6 = discord.Embed(
 
 # text_7
 text_7 = discord.Embed(
-    description="<@&734096990396350515>s are the backbone "
+    description="Those with the <@&734096990396350515> role are the backbone "
                 "of our community… indeed, "
                 "they are *the* community. They are the "
                 "reason we continue "
