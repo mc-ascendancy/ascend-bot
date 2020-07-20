@@ -86,7 +86,7 @@ check_environment()
 TOKEN = None
 handle_token()
 
-bot = commands.Bot(command_prefix="!a ")
+bot = commands.Bot(command_prefix="a!")
 
 
 @bot.event
