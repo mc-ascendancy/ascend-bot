@@ -44,7 +44,7 @@ async def execute(ctx):
         return
 
     for embed in collection:
-        await ctx.send(embed)
+        await ctx.send(embed=embed)
 
 
 bot.run(config.TOKEN)
