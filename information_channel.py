@@ -81,8 +81,8 @@ text_3 = discord.Embed(
 
 # text_4
 text_4 = discord.Embed(
-    description="<#734099995392868352>: A channel for those who prefer to text "
-                "chat.\n"
+    description="<#734099995392868352>: A channel for those who prefer"
+                " to text chat.                 \n"
                 "General: A voice channel for general discussion.\n"
                 "Specific: A voice channel for user-made bots.\n"
                 "Music: Raise the roof.\n"
@@ -109,7 +109,7 @@ text_5 = discord.Embed(
                 "and all of our staff members hold this role with equal weight. "
                 "Each member of our staff has specialized into one of three content "
                 "roles to further the development of Ascendancy. These roles are "
-                "<@&734212470024962128>, <@&734212404618985543> and "
+                "<@&734212470024962128>, <@&734212404618985543>, and "
                 "<@&734212189526818946>.\n"
                 "Developing in these content-driven roles is the priority of our "
                 "staff, but some staff members have also volunteered to be "
