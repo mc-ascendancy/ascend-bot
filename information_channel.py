@@ -66,7 +66,7 @@ text_3 = discord.Embed(
                 "reactions "
                 "to be archived in this channel.\n"
                 "<#734098616460902470>: The place for general discussion. "
-                "Need we say more? <:swag:734035009932886076>\n"
+                "Need we say more?\n"
                 "<#734098725932367944>: Somewhere to share your very funny "
                 "memes. Ha. <:wheeze:734034980857970779>\n"
                 "<#734418400318849025>: Want to criticize your government? Go "
