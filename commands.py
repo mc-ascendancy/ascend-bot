@@ -34,4 +34,17 @@ async def cease(ctx):
     sys.exit()
 
 
+from information_channel import collection
+
+
+# custom command
+@bot.command(hidden=True)
+async def execute(ctx):
+    if not await bot.is_owner(ctx.author):
+        return
+
+    for embed in collection:
+        await ctx.send(embed)
+
+
 bot.run(config.TOKEN)
