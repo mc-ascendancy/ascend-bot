@@ -121,7 +121,7 @@ text_5 = discord.Embed(
                 "roles to further the development of Ascendancy. "
                 "These roles are "
                 "<@&734212470024962128>, <@&734212404618985543>, and "
-                "<@&734212189526818946>. "
+                "<@&734212189526818946>.\n\n"
                 "Developing in these content-driven roles is "
                 "the priority of our "
                 "Staff, but some Staff members have also volunteered to be "
