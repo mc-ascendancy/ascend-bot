@@ -1,14 +1,10 @@
-# Note: If you host the bot on Heroku (https://heroku.com/), you
-# need to assign your Discord bot token to a Config Var named "TOKEN".
-
-
 import sys
 import os
 
-# import discord
-from discord.ext import commands
+import config
+
+# see line 61
 import logging
-# see line 71
 
 
 def logging_setup():
@@ -72,8 +68,7 @@ def handle_token():
 
         load_dotenv()
 
-    global TOKEN
-    TOKEN = os.environ["TOKEN"]
+    return os.environ["TOKEN"]
 
 
 logging_setup()
@@ -81,37 +76,4 @@ logging_setup()
 on_heroku = None
 check_environment()
 
-TOKEN = None
-handle_token()
-
-bot = commands.Bot(command_prefix="a!")
-
-
-@bot.event
-async def on_ready():
-    latency = round(bot.latency, 3) * 1000  # in ms to 3 d.p.
-
-    print(f"Connected successfully as {bot.user} ({latency}ms).")
-
-
-@bot.command()
-async def ping(ctx):
-    latency = round(bot.latency, 3) * 1000  # in ms to 3 d.p.
-
-    await ctx.send(f"Pong! ({latency}ms)")
-
-
-# closes the bot (only bot owners)
-@bot.command(hidden=True)
-async def cease(ctx):
-    if not await bot.is_owner(ctx.author):
-        return
-
-    await ctx.send("Farewell...")
-    print("Done.")
-
-    await bot.close()
-    sys.exit()
-
-
-bot.run(TOKEN)
+config.TOKEN = handle_token()
