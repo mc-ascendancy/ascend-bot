@@ -24,9 +24,9 @@ text_1 = discord.Embed(
                 "ultimate goal is to host a feedback-driven and feature-full "
                 "sociopolitical Minecraft server with custom topography that "
                 "revolves around geopolitics and promotes a sense of wonder and "
-                "adventure. We thank you for your interest and look forward to "
+                "adventure. *We thank you for your interest and look forward to "
                 "building the next generation of Minecraft Civilization-genre "
-                "servers with you!\n\n"
+                "servers with you!*\n\n"
                 "We invite you to check out "
                 "[our website](https://www.ascendancyproject.com/) and "
                 "[subreddit community](https://www.reddit.com/r/mc_ascendancy/)!",
