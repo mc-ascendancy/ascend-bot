@@ -228,8 +228,8 @@ text_11 = discord.Embed(
                 "and domination and generally "
                 "making the Minecraft server (or Discord) "
                 "unpleasant for everyone "
-                "else involved. Don't be that guy. "
-                "You know that guy... don't be him.",
+                "else involved. Don't be *that* guy. "
+                "You know *that* guy... don't be him.",
     color=light_blue
 ).set_author(
     name="4. No king of the ashes."
