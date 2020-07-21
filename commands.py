@@ -1,5 +1,3 @@
-import sys
-
 import config
 
 from discord.ext import commands
@@ -31,7 +29,7 @@ async def cease(ctx):
     print("Done.")
 
     await bot.close()
-    sys.exit()
+    config.sys.exit()
 
 
 # custom command

@@ -1,4 +1,3 @@
-import sys
 import os
 
 import config
@@ -47,7 +46,7 @@ def handle_token():
 
         if choice in ("y", "yes"):
             # sys.platform is current OS
-            if sys.platform in ("win32", "linux", "darwin"):
+            if config.sys.platform in ("win32", "linux", "darwin"):
                 token_input = input("Input Discord bot token: ").strip(" ")
                 cwd = os.getcwd()
 
@@ -57,7 +56,7 @@ def handle_token():
                 del token_input
             else:
                 print("Unsupported operating system.")
-                sys.exit()
+                config.sys.exit()
         elif choice in ("n", "no"):
             pass
         else:
