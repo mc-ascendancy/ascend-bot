@@ -10,3 +10,6 @@ def set_bot():
 
     global bot
     bot = commands.Bot(command_prefix="a!")
+
+
+set_bot()
