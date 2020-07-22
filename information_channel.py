@@ -256,9 +256,10 @@ text_12 = discord.Embed(
                 "on the Discord server and specific post flairs on the "
                 "subreddit: use them for their intended purposes.\n"
                 "**b.** If you are unsure if a certain topic might violate "
-                "this rule, utilize the modmail feature or request in "
-                "<#734098868978843710> for a specific channel or post flair "
-                "to be added.\n"
+                "this rule, utilize [the modmail feature]"
+                "(https://reddit.com/message/compose?to=/r/mc_ascendancy) or "
+                "request in <#734098868978843710> for a specific channel or "
+                "post flair to be added.\n"
                 "**c.** Regardless of intent, you may not share sexually "
                 "implicit or explicit content of any kind on any of our "
                 "services.",
