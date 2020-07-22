@@ -2,4 +2,5 @@
 # need to assign your Discord bot token to a Config Var named "TOKEN".
 
 import setup
+import events
 import commands

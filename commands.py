@@ -1,15 +1,6 @@
 import config
 
-from discord.ext import commands
-
-bot = commands.Bot(command_prefix="a!")
-
-
-@bot.event
-async def on_ready():
-    latency = round(bot.latency, 3) * 1000  # in ms to 3 d.p.
-
-    print(f"Connected successfully as {bot.user} ({latency}ms).")
+bot = config.bot
 
 
 @bot.command()

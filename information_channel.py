@@ -174,13 +174,19 @@ heading_4 = discord.Embed(
 
 # text_8
 text_8 = discord.Embed(
-    description="We want Ascendancy to develop in a "
-                "productive and positive way. "
-                "A zero-tolerance policy exists for "
-                "any content submitted on "
-                "the Discord that is understood to be racist, sexist, ageist, "
-                "homophobic, transphobic, ableist, or "
-                "generally hate-promoting.",
+    description="**a.** We want Ascendancy to develop in a productive and "
+                "positive way. A zero-tolerance policy exists for any content "
+                "submitted on the Discord, subreddit, or Minecraft server "
+                "that is understood to be racist, sexist, ageist, homophobic, "
+                "transphobic, ableist, or generally hate-promoting.\n"
+                "**b.** You may not share the personal information of another "
+                "player under any circumstances without their explicit "
+                "consent. You may repeat information that a player has "
+                "publicly shared about themselves.\n"
+                "**c.** Due to the competitive nature of the Minecraft "
+                "server, we expect there to be conflict and disagreements "
+                "between players. We also expect that you always remain civil "
+                "in your interactions with others.",
     color=light_blue
 ).set_author(
     name="1. No harassment or personal attacks."
@@ -188,77 +194,141 @@ text_8 = discord.Embed(
 
 # text_9
 text_9 = discord.Embed(
-    description="Don't like a prospective feature? Having doubts about the "
-                "development of the server? Growing "
-                "frustrated with the timeline? "
-                "Have an issue with a Staff member? These are all perfectly "
-                "reasonable concerns to have. Ultimately, Ascendancy is a "
-                "passion project and one we are "
-                "developing so you, the player, "
-                "can enjoy it. If you have "
-                "criticism, please don't hold back... "
-                "but, also make it constructive so that we may apply "
-                "it in useful ways!",
+    description="**a.** Don't like a prospective feature? Having doubts about "
+                "the development of the server? Growing frustrated with the "
+                "timeline? Have an issue with a Staff member? These are all "
+                "perfectly reasonable concerns to have. Ultimately, "
+                "Ascendancy is a passion project and one we are developing so "
+                "you, the player, can enjoy it. If you have criticism, please "
+                "don't hold back... but make it constructive so that we may "
+                "apply it in useful ways!\n"
+                "**b.** Every Staff member of Ascendancy is currently an "
+                "unpaid volunteer. We’d rather spend our time developing the "
+                "server than sorting out obnoxious and petty issues on the "
+                "Discord server or subreddit. Please use common sense, and if "
+                "you are unsure if a message is potentially rule-violating, "
+                "utilize [the modmail feature]"
+                "(https://reddit.com/message/compose?to=/r/mc_ascendancy).\n"
+                "**c.** Do not exploit bugs. All bugs and exploits recognized "
+                "must be reported to the Staff as soon as practicable. Any "
+                "distribution or public posting about replicating a bug or "
+                "exploit is not allowed.",
     color=light_blue
 ).set_author(
-    name="2. Be honest... but constructive."
+    name="2. Be honest... but constructive. Do not exploit bugs."
 )
 
 # text_10
 text_10 = discord.Embed(
-    description="Don't be obnoxious. You know exactly "
-                "what we mean by this rule, "
-                "and if you are unsure if a message "
-                "is potentially rule-breaking, "
-                "send any of our Discord Staff a DM first.",
+    description="**a.** You want to dominate? Sure, go ahead: the "
+                "consequences of being a vicious ruler are sure to come "
+                "eventually. After all, you write your own story on "
+                "Ascendancy. However, a line must be drawn between "
+                "justifiable destruction and domination and generally making "
+                "the Discord server, subreddit, or Minecraft server "
+                "unpleasant for everyone else involved. Don't be that guy. "
+                "You know that guy... don't be him.",
     color=light_blue
 ).set_author(
-    name="3. Remember the human and use common sense."
+    name="3. No king of the ashes."
 )
 
 # text_11
 text_11 = discord.Embed(
-    description="You want to dominate? Sure, go "
-                "ahead: the consequences of being "
-                "a vicious ruler are sure to come "
-                "eventually. After all, you "
-                "write your own story on Ascendancy. However, a line must be "
-                "drawn between justifiable destruction "
-                "and domination and generally "
-                "making the Minecraft server (or Discord) "
-                "unpleasant for everyone "
-                "else involved. Don't be *that* guy. "
-                "You know *that* guy... don't be him.",
+    description="**a.** Don't promote yourself and your services or other "
+                "products and their respective services on this Discord "
+                "server, subreddit, or Minecraft server. It's annoying, "
+                "unnecessary, and there are certainly many, many avenues for "
+                "advertisement. For better or for worse, here is not one of "
+                "them.\n"
+                "**b.** If you want permission to advertise other services, "
+                "you must first utilize [the modmail feature]"
+                "(https://reddit.com/message/compose?to=/r/mc_ascendancy) to "
+                "receive explicit permission.",
     color=light_blue
 ).set_author(
-    name="4. No king of the ashes."
+    name="4. No promotion of any kind."
 )
 
 # text_12
 text_12 = discord.Embed(
-    description="Don't promote yourself and your "
-                "services or other products and "
-                "their respective services on this "
-                "Discord server. It's annoying, "
-                "unnecessary, and there are certainly "
-                "many, many avenues for "
-                "advertisement. For better or for "
-                "worse, here is not one of them.",
+    description="**a.** Don't be rude. Don't spam. We have specific channels "
+                "on the Discord server and specific post flairs on the "
+                "subreddit: use them for their intended purposes.\n"
+                "**b.** If you are unsure if a certain topic might violate "
+                "this rule, utilize the modmail feature or request in "
+                "<#734098868978843710> for a specific channel or post flair "
+                "to be added.\n"
+                "**c.** Regardless of intent, you may not share sexually "
+                "implicit or explicit content of any kind on any of our "
+                "services.",
     color=light_blue
 ).set_author(
-    name="5. No promotion of any kind."
+    name="5. No spamming. No NSFW content."
 )
 
 # text_13
 text_13 = discord.Embed(
-    description="Don't be rude. Don't spam. If you are "
-                "uncertain where a message "
-                "might fall in regard to \"No spamming,\" contact one of our "
-                "Discord Staff! They will respond as soon as they can, and it "
-                "saves all of us avoidable headaches.",
+    description="**a.** Alternate accounts of any kind are not allowed on the "
+                "Discord server, subreddit, or Minecraft server. If you are "
+                "found to be using an alternate account, you will be banned "
+                "from all our services on all accounts. Using an alternate "
+                "account to circumvent any punishment is also against our "
+                "rules.\n"
+                "**b.** Regardless of intent, you may not assist or encourage "
+                "another player to violate any of our rules.\n"
+                "**c.** You may not utilize any client modification that "
+                "allows you to create an offline version of our Minecraft "
+                "server’s map.\n"
+                "**d.** You may not utilize a VPN, VPS, or any form of proxy "
+                "to connect to our Minecraft server.\n"
+                "**e.** You may not trade in-game goods or services for "
+                "out-of-game goods or services, or vice versa.",
     color=light_blue
 ).set_author(
-    name="6. No spamming."
+    name="6. Miscellaneous rules."
+)
+
+# text_14
+text_14 = discord.Embed(
+    description="The Staff of Ascendancy: A Minecraft Civilization Project "
+                "reserves the right to remove any player for any reason for "
+                "any length of time from the Discord server, subreddit, or "
+                "Minecraft server. Our rules are up to the interpretation of "
+                "the Staff. Additionally, our rules may be changed at any "
+                "time, and, as a player, you will always be held to them. We "
+                "will do our best to update the community on any rule "
+                "modifications, additions, or subtractions as soon as "
+                "possible. We also reserve the right to punish retroactively "
+                "with rule changes if at all necessary.\n\n"
+                "As a Staff, our deepest motivation is to develop a "
+                "feedback-driven and feature-full Minecraft Civilization "
+                "server. We need a community to accomplish this goal, and, "
+                "therefore, no punishment is ever given lightly. Especially "
+                "punishments that warrant us removing a community member "
+                "entirely. With that said, the punishment is subject to the "
+                "crime, and we expect players to interact with others with a "
+                "certain level of mutual respect.\n\n"
+                "If you ever have concerns or confusion regarding any of our "
+                "rules on any of our services, utilize the modmail feature. "
+                "Though we understand it may be more convenient to direct "
+                "message a Staff member on Discord, your question may not be "
+                "answered with satisfaction or accuracy if you only consult "
+                "with one Staff member. Consider modmail your first point of "
+                "contact with the Staff. By utilizing the modmail feature, "
+                "you are likely to get a more accurate and legitimate answer: "
+                "we are a group of Staff, and we discuss and make decisions "
+                "as a group. An answer you receive from a single Staff member "
+                "could be overturned by the majority. By utilizing "
+                "[the modmail feature]"
+                "(https://reddit.com/message/compose?to=/r/mc_ascendancy), we "
+                "avoid this issue. You may also appeal punishments through "
+                "the modmail feature. We will not discuss bans publicly, and "
+                "if you direct message a Staff member on Discord regarding a "
+                "punishment or appeal, it will be ignored.",
+    color=light_blue
+).set_author(
+    name="Hammer to Fall"
 )
 
 # a collection of all the embeds in order
@@ -279,5 +349,6 @@ collection = (
     text_10,
     text_11,
     text_12,
-    text_13
+    text_13,
+    text_14
 )
