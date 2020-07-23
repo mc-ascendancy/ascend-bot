@@ -33,6 +33,3 @@ async def execute(ctx):
 
     for embed in collection:
         await ctx.send(embed=embed)
-
-
-bot.run(config.TOKEN)

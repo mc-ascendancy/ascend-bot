@@ -4,3 +4,12 @@
 import setup
 import events
 import commands
+
+
+def run_bot():
+    from config import TOKEN, bot
+
+    bot.run(TOKEN)
+
+
+run_bot()
