@@ -50,9 +50,9 @@ heading_2 = discord.Embed(
 
 # text_2
 text_2 = discord.Embed(
-    description="<#734098917867782214>: Where all these embeds are posted and will "
-                "be updated if applicable.\n"
-                "<#734098962570805328>: Important updates for our community.",
+    description="<#734098917867782214>: A channel dedicated to information "
+                "about Ascendancy: A Minecraft Civilization Project.\n"
+                "<#734098962570805328>: A channel for important updates.",
     color=light_blue
 ).set_author(
     name="Meta Channels"
@@ -61,23 +61,16 @@ text_2 = discord.Embed(
 # text_3
 text_3 = discord.Embed(
     description="<#734122828613288059>: A Hall of Fame for your genius "
-                "feature "
-                "requests and ridiculous memes. Messages need six :star: "
-                "reactions "
-                "to be archived in this channel.\n"
+                "feature requests and ridiculous memes. Messages need six "
+                ":star: reactions to be archived in this channel.\n"
                 "<#734098616460902470>: The place for general discussion. "
                 "Need we say more?\n"
-                "<#734098725932367944>: Somewhere to share your very funny "
+                "<#734098725932367944>: A channel to share your very funny "
                 "memes. Ha. <:wheeze:734034980857970779>\n"
-                "<#734098868978843710>: The most important General Channel "
-                "of all. If you have any feedback "
-                "regarding the Discord server, "
-                "subreddit, or (eventually) Minecraft server, post it here! "
-                "We will be sure to follow up with and apply your relevant "
-                "recommendations.\n"
-                "<#735215466968121386>: A place for more niche conversations. "
-                "Remember that all server rules still apply in this channel.\n"
-                "<#734098831007940648>: A channel for using bots, you alts.\n"
+                "<#735215466968121386>: A channel for more niche "
+                "conversations. Remember that all server rules still apply in "
+                "this channel.\n"
+                "<#734098831007940648>: A channel for using bots.\n"
                 "<#734119161437093889>: An archive of posts from "
                 "[our subreddit community]"
                 "(https://www.reddit.com/r/mc_ascendancy/).",
@@ -88,12 +81,30 @@ text_3 = discord.Embed(
 
 # text_4
 text_4 = discord.Embed(
+    description="<#736210100724826124>: A channel dedicated to players "
+                "opening tickets related to General Topics, Staff Reports, or "
+                "Emote Requests.\n"
+                "<#736325021856694385>: A channel for players to suggest "
+                "prospective features for the Discord server, subreddit, "
+                "Minecraft server, or website.\n"
+                "<#736325045617557584>: A channel for players to discuss the "
+                "ideas suggested in <#736325021856694385>.\n"
+                "<#734098868978843710>: A channel for players to give "
+                "feedback regarding the Discord server, subreddit, Minecraft "
+                "server, or website.",
+    color=light_blue
+).set_author(
+    name="Development Channels"
+)
+
+# text_5
+text_5 = discord.Embed(
     description="<#734099995392868352>: A channel for those who prefer"
                 " to text chat.\n"
                 "General: A voice channel for general discussion.\n"
-                "Specific: A voice channel for user-made bots.\n"
+                "Specific: A voice channel for using user-made bots.\n"
                 "Music: Raise the roof.\n"
-                "AFK: Where the alts go.",
+                "AFK: Exit stage left, please.",
     color=light_blue
 ).set_author(
     name="Voice Channels"
@@ -107,8 +118,8 @@ heading_3 = discord.Embed(
         "734810659723804682/AROLES-01.png"
 )
 
-# text_5
-text_5 = discord.Embed(
+# text_6
+text_6 = discord.Embed(
     description="The leadership hierarchy of this Discord, as well as the "
                 "subreddit and Minecraft server, is very simple: *it doesn't "
                 "exist*. The only leadership role within our community is "
@@ -135,8 +146,8 @@ text_5 = discord.Embed(
     name="Staff Roles"
 )
 
-# text_6
-text_6 = discord.Embed(
+# text_7
+text_7 = discord.Embed(
     description="Those with the <@&734418804490240061> role are "
                 "extremely generous "
                 "members of our community "
@@ -150,8 +161,8 @@ text_6 = discord.Embed(
     name="Server Booster"
 )
 
-# text_7
-text_7 = discord.Embed(
+# text_8
+text_8 = discord.Embed(
     description="Those with the <@&734096990396350515> role are the backbone "
                 "of our community… indeed, "
                 "they are *the* community. They are the "
@@ -172,8 +183,8 @@ heading_4 = discord.Embed(
         "734810661535612998/ARULES-01.png"
 )
 
-# text_8
-text_8 = discord.Embed(
+# text_9
+text_9 = discord.Embed(
     description="**a.** We want Ascendancy to develop in a productive and "
                 "positive way. A zero-tolerance policy exists for any content "
                 "submitted on the Discord, subreddit, or Minecraft server "
@@ -192,8 +203,8 @@ text_8 = discord.Embed(
     name="1. No harassment or personal attacks."
 )
 
-# text_9
-text_9 = discord.Embed(
+# text_10
+text_10 = discord.Embed(
     description="**a.** Don't like a prospective feature? Having doubts about "
                 "the development of the server? Growing frustrated with the "
                 "timeline? Have an issue with a Staff member? These are all "
@@ -207,6 +218,7 @@ text_9 = discord.Embed(
                 "server than sorting out obnoxious and petty issues on the "
                 "Discord server or subreddit. Please use common sense, and if "
                 "you are unsure if a message is potentially rule-violating, "
+                "submit a General Topics ticket in <#736210100724826124> or "
                 "utilize [the modmail feature]"
                 "(https://reddit.com/message/compose?to=/r/mc_ascendancy).\n"
                 "**c.** Do not exploit bugs. All bugs and exploits recognized "
@@ -218,8 +230,8 @@ text_9 = discord.Embed(
     name="2. Be honest... but constructive. Do not exploit bugs."
 )
 
-# text_10
-text_10 = discord.Embed(
+# text_11
+text_11 = discord.Embed(
     description="**a.** You want to dominate? Sure, go ahead: the "
                 "consequences of being a vicious ruler are sure to come "
                 "eventually. After all, you write your own story on "
@@ -233,8 +245,8 @@ text_10 = discord.Embed(
     name="3. No king of the ashes."
 )
 
-# text_11
-text_11 = discord.Embed(
+# text_12
+text_12 = discord.Embed(
     description="**a.** Don't promote yourself and your services or other "
                 "products and their respective services on this Discord "
                 "server, subreddit, or Minecraft server. It's annoying, "
@@ -242,24 +254,23 @@ text_11 = discord.Embed(
                 "advertisement. For better or for worse, here is not one of "
                 "them.\n"
                 "**b.** If you want permission to advertise other services, "
-                "you must first utilize [the modmail feature]"
-                "(https://reddit.com/message/compose?to=/r/mc_ascendancy) to "
-                "receive explicit permission.",
+                "you must first submit a General Topics ticket in "
+                "<#736210100724826124> or utilize [the modmail feature]"
+                "(https://reddit.com/message/compose?to=/r/mc_ascendancy).\n",
     color=light_blue
 ).set_author(
     name="4. No promotion of any kind."
 )
 
-# text_12
-text_12 = discord.Embed(
+# text_13
+text_13 = discord.Embed(
     description="**a.** Don't be rude. Don't spam. We have specific channels "
                 "on the Discord server and specific post flairs on the "
                 "subreddit: use them for their intended purposes.\n"
-                "**b.** If you are unsure if a certain topic might violate "
-                "this rule, utilize [the modmail feature]"
-                "(https://reddit.com/message/compose?to=/r/mc_ascendancy) or "
-                "request in <#734098868978843710> for a specific channel or "
-                "post flair to be added.\n"
+                "**b.** If you are unsure if a certain topic might violate this rule, "
+                "submit a General Topics ticket in <#736210100724826124> or "
+                "utilize [the modmail feature]"
+                "(https://reddit.com/message/compose?to=/r/mc_ascendancy).\n"
                 "**c.** Regardless of intent, you may not share sexually "
                 "implicit or explicit content of any kind on any of our "
                 "services.",
@@ -268,8 +279,8 @@ text_12 = discord.Embed(
     name="5. No spamming. No NSFW content."
 )
 
-# text_13
-text_13 = discord.Embed(
+# text_14
+text_14 = discord.Embed(
     description="**a.** Alternate accounts of any kind are not allowed on the "
                 "Discord server, subreddit, or Minecraft server. If you are "
                 "found to be using an alternate account, you will be banned "
@@ -290,8 +301,8 @@ text_13 = discord.Embed(
     name="6. Miscellaneous rules."
 )
 
-# text_14
-text_14 = discord.Embed(
+# text_15
+text_15 = discord.Embed(
     description="The Staff of Ascendancy: A Minecraft Civilization Project "
                 "reserves the right to remove any player for any reason for "
                 "any length of time from the Discord server, subreddit, or "
@@ -311,22 +322,21 @@ text_14 = discord.Embed(
                 "crime, and we expect players to interact with others with a "
                 "certain level of mutual respect.\n\n"
                 "If you ever have concerns or confusion regarding any of our "
-                "rules on any of our services, utilize the modmail feature. "
-                "Though we understand it may be more convenient to direct "
-                "message a Staff member on Discord, your question may not be "
-                "answered with satisfaction or accuracy if you only consult "
-                "with one Staff member. Consider modmail your first point of "
-                "contact with the Staff. By utilizing the modmail feature, "
-                "you are likely to get a more accurate and legitimate answer: "
-                "we are a group of Staff, and we discuss and make decisions "
-                "as a group. An answer you receive from a single Staff member "
-                "could be overturned by the majority. By utilizing "
-                "[the modmail feature]"
-                "(https://reddit.com/message/compose?to=/r/mc_ascendancy), we "
-                "avoid this issue. You may also appeal punishments through "
-                "the modmail feature. We will not discuss bans publicly, and "
-                "if you direct message a Staff member on Discord regarding a "
-                "punishment or appeal, it will be ignored.",
+                "rules on any of our services, submit a General Topics ticket "
+                "in <#736210100724826124> or utilize [the modmail feature]"
+                "(https://reddit.com/message/compose?to=/r/mc_ascendancy). "
+                "Please do not direct message a Staff member on Discord, as "
+                "your question may not be answered with satisfaction or "
+                "accuracy if you only consult with one Staff member. By "
+                "utilizing either the ticket system or modmail feature, you "
+                "are likely to get a more accurate and legitimate answer: we "
+                "are a group of Staff, and we discuss and make decisions as a "
+                "group. An answer you receive from a single Staff member "
+                "could be overturned by the majority. You may also appeal "
+                "punishments through the ticket system or modmail feature. We "
+                "will not discuss bans publicly, and if you direct message a "
+                "Staff member on Discord regarding a punishment or appeal, it "
+                "will be ignored.",
     color=light_blue
 ).set_author(
     name="Hammer to Fall"
@@ -351,5 +361,6 @@ collection = (
     text_11,
     text_12,
     text_13,
-    text_14
+    text_14,
+    text_15
 )
