@@ -1,3 +1,4 @@
+import sys
 import os
 
 import config
@@ -46,7 +47,7 @@ def handle_token():
 
         if choice in ("y", "yes"):
             # sys.platform is current OS
-            if config.sys.platform in ("win32", "linux", "darwin"):
+            if sys.platform in ("win32", "linux", "darwin"):
                 token_input = input("Input Discord bot token: ").strip(" ")
                 cwd = os.getcwd()
 
@@ -56,7 +57,7 @@ def handle_token():
                 del token_input
             else:
                 print("Unsupported operating system.")
-                config.sys.exit()
+                sys.exit()
         elif choice in ("n", "no"):
             pass
         else:
@@ -67,7 +68,7 @@ def handle_token():
 
         load_dotenv()
 
-    return os.environ["TOKEN"]
+    config.TOKEN = os.environ["TOKEN"]
 
 
 logging_setup()
@@ -75,4 +76,4 @@ logging_setup()
 on_heroku = None
 check_environment()
 
-config.TOKEN = handle_token()
+handle_token()

@@ -1,5 +1,3 @@
-import sys
-
 TOKEN = None
 
 bot = None

@@ -1,3 +1,5 @@
+import sys
+
 import config
 
 bot = config.bot
@@ -20,7 +22,7 @@ async def cease(ctx):
     print("Done.")
 
     await bot.close()
-    config.sys.exit()
+    sys.exit()
 
 
 # custom command
