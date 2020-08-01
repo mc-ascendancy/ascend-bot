@@ -33,7 +33,7 @@ text_1 = discord.Embed(
                 "We invite you to [check out our website]"
                 "(https://www.ascendancyproject.com/) and "
                 "[subreddit community]"
-                "(https://www.reddit.com/r/mc_ascendancy/)!",
+                "(https://www.reddit.com/r/ascendancy/)!",
     color=light_blue
 ).set_author(
     name="Welcome to the official Discord for Ascendancy: A Minecraft "
@@ -73,7 +73,7 @@ text_3 = discord.Embed(
                 "<#734098831007940648>: A channel for using bots.\n"
                 "<#734119161437093889>: An archive of posts from "
                 "[our subreddit community]"
-                "(https://www.reddit.com/r/mc_ascendancy/).",
+                "(https://www.reddit.com/r/ascendancy/).",
     color=light_blue
 ).set_author(
     name="General Channels"
@@ -220,7 +220,7 @@ text_10 = discord.Embed(
                 "you are unsure if a message is potentially rule-violating, "
                 "submit a General Topics ticket in <#736210100724826124> or "
                 "utilize [the modmail feature]"
-                "(https://reddit.com/message/compose?to=/r/mc_ascendancy).\n"
+                "(https://reddit.com/message/compose?to=/r/ascendancy).\n"
                 "**c.** Do not exploit bugs. All bugs and exploits recognized "
                 "must be reported to the Staff as soon as practicable. Any "
                 "distribution or public posting about replicating a bug or "
@@ -256,7 +256,7 @@ text_12 = discord.Embed(
                 "**b.** If you want permission to advertise other services, "
                 "you must first submit a General Topics ticket in "
                 "<#736210100724826124> or utilize [the modmail feature]"
-                "(https://reddit.com/message/compose?to=/r/mc_ascendancy).\n",
+                "(https://reddit.com/message/compose?to=/r/ascendancy).\n",
     color=light_blue
 ).set_author(
     name="4. No promotion of any kind."
@@ -270,7 +270,7 @@ text_13 = discord.Embed(
                 "**b.** If you are unsure if a certain topic might violate this rule, "
                 "submit a General Topics ticket in <#736210100724826124> or "
                 "utilize [the modmail feature]"
-                "(https://reddit.com/message/compose?to=/r/mc_ascendancy).\n"
+                "(https://reddit.com/message/compose?to=/r/ascendancy).\n"
                 "**c.** Regardless of intent, you may not share sexually "
                 "implicit or explicit content of any kind on any of our "
                 "services.",
@@ -324,7 +324,7 @@ text_15 = discord.Embed(
                 "If you ever have concerns or confusion regarding any of our "
                 "rules on any of our services, submit a General Topics ticket "
                 "in <#736210100724826124> or utilize [the modmail feature]"
-                "(https://reddit.com/message/compose?to=/r/mc_ascendancy). "
+                "(https://reddit.com/message/compose?to=/r/ascendancy). "
                 "Please do not direct message a Staff member on Discord, as "
                 "your question may not be answered with satisfaction or "
                 "accuracy if you only consult with one Staff member. By "
