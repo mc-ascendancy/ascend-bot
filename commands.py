@@ -35,3 +35,24 @@ async def execute(ctx):
 
     for embed in collection:
         await ctx.send(embed=embed)
+
+
+@bot.command(
+    hidden=True,
+    aliases=["rip"]
+)
+async def refresh_ideas_polling(ctx, n):
+    try:
+        n = int(n)
+    except ValueError:
+        await ctx.send("Invalid value.")
+
+        return
+
+    channel = bot.get_channel(736325021856694385)
+
+    messages = await channel.history(limit=n).flatten()
+
+    for message in messages:
+        await message.add_reaction("<:upvote:734576662229811230>")
+        await message.add_reaction("<:downvote:734576698217201674>")
