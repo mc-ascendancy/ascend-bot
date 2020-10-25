@@ -42,17 +42,33 @@ async def execute(ctx):
     aliases=["rip"]
 )
 async def refresh_ideas_polling(ctx, n):
+    ideas_channel = bot.get_channel(736325021856694385)
+    upvote_emoji = bot.get_emoji(734576662229811230)
+    downvote_emoji = bot.get_emoji(734576698217201674)
+
     try:
         n = int(n)
+
+        if n <= 0:
+            raise ValueError
     except ValueError:
         await ctx.send("Invalid value.")
 
         return
 
-    channel = bot.get_channel(736325021856694385)
-
-    messages = await channel.history(limit=n).flatten()
+    messages = await ideas_channel.history(limit=n).flatten()
 
     for message in messages:
-        await message.add_reaction("<:upvote:734576662229811230>")
-        await message.add_reaction("<:downvote:734576698217201674>")
+        ok = False
+        for reaction in message.reactions:
+            if reaction.emoji in (
+                    upvote_emoji, downvote_emoji
+            ) and reaction.me:
+                ok = True
+
+            if reaction.emoji not in (upvote_emoji, downvote_emoji, "⭐"):
+                await reaction.clear()
+
+        if not ok:
+            await message.add_reaction(upvote_emoji)
+            await message.add_reaction(downvote_emoji)

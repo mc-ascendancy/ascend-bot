@@ -10,13 +10,12 @@ async def on_ready():
     print(f"Connected successfully as {bot.user} ({latency}ms).")
 
 
-ideas_channel = bot.get_channel(736325021856694385)
-upvote_emoji = bot.get_emoji(734576662229811230)
-downvote_emoji = bot.get_emoji(734576698217201674)
-
-
 @bot.event
 async def on_message(message):
+    ideas_channel = bot.get_channel(736325021856694385)
+    upvote_emoji = bot.get_emoji(734576662229811230)
+    downvote_emoji = bot.get_emoji(734576698217201674)
+
     if message.channel == ideas_channel:
         await message.add_reaction(upvote_emoji)
         await message.add_reaction(downvote_emoji)
@@ -25,9 +24,11 @@ async def on_message(message):
 
 
 @bot.event
-async def on_reaction_add(reaction, member):
-    member_is_admin = member.guild_permissions.administrator
+async def on_reaction_add(reaction, _):
+    ideas_channel = bot.get_channel(736325021856694385)
+    upvote_emoji = bot.get_emoji(734576662229811230)
+    downvote_emoji = bot.get_emoji(734576698217201674)
 
-    if reaction.message.channel == ideas_channel and not member_is_admin:
+    if reaction.message.channel == ideas_channel:
         if reaction.emoji not in (upvote_emoji, downvote_emoji, "⭐"):
-            await reaction.remove(member)
+            await reaction.clear()
