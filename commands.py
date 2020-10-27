@@ -24,7 +24,7 @@ mod_ids = (
     aliases=["latency"],
     hidden=True,
     help="Used to get the ping of the bot. "
-         "(Only works when called by bot mods.)
+         "(Only works when called by bot mods.)"
 )
 async def ping(ctx):
     if ctx.author.id not in mod_ids:
