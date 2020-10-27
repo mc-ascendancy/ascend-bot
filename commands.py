@@ -289,7 +289,7 @@ rigged_choice = None
     aliases=["rcf"],
     hidden=True,
     help="Used to rig the coin flip command (short term). "
-         "(Only works when called by bot mods.)
+         "(Only works when called by bot mods.)"
 )
 async def rig_coin_flip(ctx, choice):
     if choice.lower().strip() not in ("heads", "tails"):
