@@ -12,23 +12,22 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    ideas_channel = bot.get_channel(736325021856694385)
-    upvote_emoji = bot.get_emoji(734576662229811230)
-    downvote_emoji = bot.get_emoji(734576698217201674)
+    if bot.user in message.mentions:
+        await message.channel.send("Hello! (**a!**)")
 
-    if message.channel == ideas_channel:
-        await message.add_reaction(upvote_emoji)
-        await message.add_reaction(downvote_emoji)
+    if message.channel.id == 736325021856694385:  # ideas channel
+        await message.add_reaction("<:upvote:734576662229811230>")
+        await message.add_reaction("<:downvote:734576698217201674>")
 
     await bot.process_commands(message)
 
 
 @bot.event
 async def on_reaction_add(reaction, _):
-    ideas_channel = bot.get_channel(736325021856694385)
-    upvote_emoji = bot.get_emoji(734576662229811230)
-    downvote_emoji = bot.get_emoji(734576698217201674)
-
-    if reaction.message.channel == ideas_channel:
-        if reaction.emoji not in (upvote_emoji, downvote_emoji, "⭐"):
+    if reaction.message.channel.id == 736325021856694385:
+        if reaction.emoji not in (
+                "<:upvote:734576662229811230>",
+                "<:downvote:734576698217201674>",
+                "⭐"
+        ):
             await reaction.clear()
