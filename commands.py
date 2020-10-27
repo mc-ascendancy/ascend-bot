@@ -42,10 +42,6 @@ async def execute(ctx):
     aliases=["rip"]
 )
 async def refresh_ideas_polling(ctx, n):
-    if not await bot.is_owner(ctx.author):
-        return
-
-
     ideas_channel = bot.get_channel(736325021856694385)
     upvote_emoji = bot.get_emoji(734576662229811230)
     downvote_emoji = bot.get_emoji(734576698217201674)
