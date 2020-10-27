@@ -291,7 +291,7 @@ rigged_choice = None
     help="Used to rig the coin flip command (short term). "
          "(Only works when called by bot mods.)"
 )
-async def rig_coin_flip(ctx, choice):
+async def rig_coin_flip(ctx, choice=None):
     if choice.lower().strip() not in ("heads", "tails"):
         return
     else:
