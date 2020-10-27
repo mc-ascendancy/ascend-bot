@@ -23,7 +23,8 @@ mod_ids = (
 @bot.command(
     aliases=["latency"],
     hidden=True,
-    help="Used to get the ping of the bot."
+    help="Used to get the ping of the bot. "
+         "(Only works when called by bot mods.)
 )
 async def ping(ctx):
     if ctx.author.id not in mod_ids:
@@ -284,10 +285,11 @@ rigged_choice = None
 
 
 @bot.command(
-    name="rcf",
+    name="rcflip",
+    aliases=["rcf"],
     hidden=True,
     help="Used to rig the coin flip command (short term). "
-         "(Only works when called by bot mods.)"
+         "(Only works when called by bot mods.)
 )
 async def rig_coin_flip(ctx, choice):
     if choice.lower().strip() not in ("heads", "tails"):
