@@ -280,12 +280,38 @@ async def refresh_ideas_polling(ctx, n):
             await message.add_reaction("<:downvote:734576698217201674>")
 
 
-@bot.commands(
+rigged_choice = None
+
+
+@bot.command(
+    name="rcf",
+    hidden=True,
+    help="Used to rig the coin flip command (short term). "
+         "(Only works when called by bot mods.)"
+)
+async def rig_coin_flip(ctx, choice):
+    if choice.lower().strip() not in ("heads", "tails"):
+        return
+    else:
+        global rigged_choice
+
+        rigged_choice = choice
+
+        await ctx.send("👍")
+
+
+@bot.command(
     name="cflip",
     aliases=["cf"],
-    help="Used to flip a virtual coin. (Only works when called by bot mods.)"
+    help="Used to flip a virtual coin."
 )
 async def coin_flip(ctx):
-    choice = random.choice(("Heads", "Tails"))
+    if ctx.author.id in mod_ids:
+        if not rigged_choice:
+            choice = random.choice(("heads", "tails"))
+        else:
+            choice = rigged_choice
+    else:
+        choice = random.choice(("heads", "tails"))
 
-    await ctx.send(f"**{choice}**.")
+    await ctx.send(f"The coin :coin: flipped on **{choice}**!")
