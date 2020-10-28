@@ -60,12 +60,13 @@ bot.remove_command("help")
     help="Used for getting this message."
 )
 async def help_(ctx):
-    commands_list = list(bot.commands)
-    commands_list.sort(key=lambda command_in: command_in.name)
+    commands_list = []
 
-    for command in commands_list:
-        if command.hidden:
-            commands_list.remove(command)
+    for command in list(bot.commands):
+        if not command.hidden:
+            commands_list.append(command)
+
+    commands_list.sort(key=lambda command_in: command_in.name)
 
     grouped_commands_list = [
         commands_list[i:i + 10] for i in range(0, len(commands_list), 10)
@@ -144,12 +145,13 @@ async def help_(ctx):
     hidden=True
 )
 async def mod_help(ctx):
-    commands_list = list(bot.commands)
-    commands_list.sort(key=lambda command_in: command_in.name)
+    commands_list = []
 
-    for command in commands_list:
-        if not command.hidden:
-            commands_list.remove(command)
+    for command in list(bot.commands):
+        if command.hidden:
+            commands_list.append(command)
+
+    commands_list.sort(key=lambda command_in: command_in.name)
 
     grouped_commands_list = [
         commands_list[i:i + 10] for i in range(0, len(commands_list), 10)
