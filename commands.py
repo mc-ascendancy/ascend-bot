@@ -38,7 +38,7 @@ async def ping(ctx):
 # closes the bot (only bot owners)
 @bot.command(
     hidden=True,
-    help="Used to terminate the bot. (Only works if called by bot admins.)"
+    help="Used to terminate the bot. (Only works when called by bot admins.)"
 )
 async def cease(ctx):
     if not await bot.is_owner(ctx.author):
@@ -140,7 +140,8 @@ async def help_(ctx):
 @bot.command(
     name="mhelp",
     aliases=["mh"],
-    help="Used for getting this message."
+    help="Used for getting this message.",
+    hidden=True
 )
 async def mod_help(ctx):
     commands_list = list(bot.commands)
@@ -225,7 +226,7 @@ async def mod_help(ctx):
     name="is",
     hidden=True,
     help="Used to set up <#734098917867782214>. "
-         "(Only works if called by bot mods.)"
+         "(Only works when called by bot mods.)"
 )
 async def information_setup(ctx):
     if ctx.author.id not in mod_ids:
@@ -240,7 +241,7 @@ async def information_setup(ctx):
 @bot.command(
     name="rip",
     hidden=True,
-    help="Used to refresh the polling in <#736325021856694385>."
+    help="Used to refresh the polling in <#736325021856694385>. "
          "(Only works when called by bot mods.)"
 )
 async def refresh_ideas_polling(ctx, n):
@@ -281,6 +282,23 @@ async def refresh_ideas_polling(ctx, n):
             await message.add_reaction("<:downvote:734576698217201674>")
 
 
+@bot.command(
+    name="cflip",
+    aliases=["cf"],
+    help="Used to flip a virtual coin."
+)
+async def coin_flip(ctx):
+    if ctx.author.id in mod_ids:
+        if not rigged_choice:
+            choice = random.choice(("heads", "tails"))
+        else:
+            choice = rigged_choice
+    else:
+        choice = random.choice(("heads", "tails"))
+
+    await ctx.send(f"The coin :coin: flipped on **{choice}**!")
+
+
 rigged_choice = None
 
 
@@ -300,20 +318,3 @@ async def rig_coin_flip(ctx, choice=None):
         rigged_choice = choice
 
         await ctx.send("👍")
-
-
-@bot.command(
-    name="cflip",
-    aliases=["cf"],
-    help="Used to flip a virtual coin."
-)
-async def coin_flip(ctx):
-    if ctx.author.id in mod_ids:
-        if not rigged_choice:
-            choice = random.choice(("heads", "tails"))
-        else:
-            choice = rigged_choice
-    else:
-        choice = random.choice(("heads", "tails"))
-
-    await ctx.send(f"The coin :coin: flipped on **{choice}**!")
