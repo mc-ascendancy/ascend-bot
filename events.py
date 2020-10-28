@@ -12,20 +12,32 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
+    if message.author == bot.user:
+        return
+
     if bot.user in message.mentions:
-        await message.channel.send("Hello! (**a!**)")
+        await message.channel.send(
+            f"Hello! Use `{bot.command_prefix}help` to check out my commands!"
+        )
 
     if message.channel.id == 736325021856694385:  # ideas channel
-        await message.add_reaction("<:upvote:734576662229811230>")
-        await message.add_reaction("<:downvote:734576698217201674>")
+        if not message.content.startswith(bot.command_prefix):
+            await message.add_reaction("<:upvote:734576662229811230>")
+            await message.add_reaction("<:downvote:734576698217201674>")
 
     await bot.process_commands(message)
 
 
 @bot.event
 async def on_reaction_add(reaction, _):
+    if reaction.me:
+        return
+
+    if reaction.message.content.startswith(bot.command.prefix):
+        return
+
     if reaction.message.channel.id == 736325021856694385:
-        if reaction.emoji not in (
+        if str(reaction.emoji) not in (
                 "<:upvote:734576662229811230>",
                 "<:downvote:734576698217201674>",
                 "⭐"

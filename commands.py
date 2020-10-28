@@ -251,7 +251,7 @@ async def refresh_ideas_polling(ctx, n):
     ideas_channel = bot.get_channel(736325021856694385)
 
     if ctx.channel == ideas_channel:
-        await ctx.channel.message.delete()
+        await ctx.message.delete()
 
     try:
         n = int(n)
@@ -263,14 +263,15 @@ async def refresh_ideas_polling(ctx, n):
 
     async for message in ideas_channel.history(limit=n):
         ok = False
+
         for reaction in message.reactions:
-            if reaction.emoji in (
+            if str(reaction.emoji) in (
                     "<:upvote:734576662229811230>",
                     "<:downvote:734576698217201674>"
             ) and reaction.me:
                 ok = True
 
-            if reaction.emoji not in (
+            if str(reaction.emoji) not in (
                     "<:upvote:734576662229811230>",
                     "<:downvote:734576698217201674>",
                     "⭐"
@@ -304,17 +305,21 @@ rigged_choice = None
 
 @bot.command(
     name="rcflip",
-    aliases=["rcf"],
     hidden=True,
+    aliases=["rcf"],
     help="Used to rig the coin flip command (short term). "
          "(Only works when called by bot mods.)"
 )
 async def rig_coin_flip(ctx, choice=None):
-    if choice.lower().strip() not in ("heads", "tails"):
-        return
-    else:
-        global rigged_choice
+    global rigged_choice
 
+    if not choice:
         rigged_choice = choice
 
         await ctx.send("👍")
+    elif choice.lower().strip() in ("heads", "tails"):
+        rigged_choice = choice
+
+        await ctx.send("👍")
+    else:
+        return
