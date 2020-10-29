@@ -26,20 +26,3 @@ async def on_message(message):
             await message.add_reaction("<:downvote:734576698217201674>")
 
     await bot.process_commands(message)
-
-
-@bot.event
-async def on_reaction_add(reaction, _):
-    if reaction.me:
-        return
-
-    if reaction.message.content.startswith(bot.command.prefix):
-        return
-
-    if reaction.message.channel.id == 736325021856694385:
-        if str(reaction.emoji) not in (
-                "<:upvote:734576662229811230>",
-                "<:downvote:734576698217201674>",
-                "⭐"
-        ):
-            await reaction.clear()
