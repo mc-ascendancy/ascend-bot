@@ -2,7 +2,6 @@ import sys
 
 import asyncio
 import discord
-from discord.ext import commands
 import random
 
 import config
@@ -125,7 +124,7 @@ async def help_(ctx):
 
                 try:
                     await help_message.remove_reaction(reaction, user)
-                except commands.BotMissingPermissions:
+                except discord.Forbidden:
                     pass
             elif str(reaction.emoji) == "◀️":
                 if n == 0:
@@ -137,12 +136,12 @@ async def help_(ctx):
 
                 try:
                     await help_message.remove_reaction(reaction, user)
-                except commands.BotMissingPermissions:
+                except discord.Forbidden:
                     pass
             else:
                 try:
                     await help_message.remove_reaction(reaction, user)
-                except commands.BotMissingPermissions:
+                except discord.Forbidden:
                     pass
         except asyncio.TimeoutError:
             break
@@ -219,7 +218,7 @@ async def mod_help(ctx):
 
                 try:
                     await help_message.remove_reaction(reaction, user)
-                except commands.BotMissingPermissions:
+                except discord.Forbidden:
                     pass
             elif str(reaction.emoji) == "◀️":
                 if n == 0:
@@ -231,12 +230,12 @@ async def mod_help(ctx):
 
                 try:
                     await help_message.remove_reaction(reaction, user)
-                except commands.BotMissingPermissions:
+                except discord.Forbidden:
                     pass
             else:
                 try:
                     await help_message.remove_reaction(reaction, user)
-                except commands.BotMissingPermissions:
+                except discord.Forbidden:
                     pass
         except asyncio.TimeoutError:
             break
