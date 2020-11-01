@@ -1,2 +1,2 @@
 # Ascendancy Discord Bot
-The Discord bot for the Ascendancy project.
+The Discord bot for the Ascendancy project. pog
