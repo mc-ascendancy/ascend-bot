@@ -52,6 +52,8 @@ heading_2 = discord.Embed(
 text_2 = discord.Embed(
     description="<#734098917867782214>: A channel dedicated to information "
                 "about Ascendancy: A Minecraft Civilization Project.\n"
+                "<#779218188520652820>: A channel dedicated to players " 
+                "opting into specific, category-based roles.\n"
                 "<#734098962570805328>: A channel for important updates.",
     color=light_blue
 ).set_author(
