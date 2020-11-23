@@ -88,8 +88,19 @@ async def help_(ctx):
         for command in group:
             page.add_field(
                 name=command.name,
-                value=command.help + (
-                    f"\n*Usage:* `{command.usage}`" if command.usage else ""
+                value=(
+                        command.help +
+                        (
+                            f"\n*Usage:* `{command.usage}`" if command.usage
+                            else ""
+                        ) +
+                        (
+                            f"\n*Alias"
+                            f"{'' if len(command.aliases) == 1 else 'es'}"
+                            f":* `{'`, `'.join(command.aliases)}`"
+                            if command.aliases
+                            else ""
+                        )
                 ),
                 inline=False
             )
@@ -184,8 +195,19 @@ async def mod_help(ctx):
         for command in group:
             page.add_field(
                 name=command.name,
-                value=command.help + (
-                    f"\n*Usage:* `{command.usage}`" if command.usage else ""
+                value=(
+                        command.help +
+                        (
+                            f"\n*Usage:* `{command.usage}`" if command.usage
+                            else ""
+                        ) +
+                        (
+                            f"\n*Alias"
+                            f"{'' if len(command.aliases) == 1 else 'es'}"
+                            f":* `{'`, `'.join(command.aliases)}`"
+                            if command.aliases
+                            else ""
+                        )
                 ),
                 inline=False
             )
