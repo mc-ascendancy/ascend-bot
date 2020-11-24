@@ -51,20 +51,16 @@ async def cease(ctx):
     sys.exit()
 
 
-bot.remove_command("help")
-
-
-@bot.command(
-    name="help",
-    aliases=["h"],
-    help="Used for getting this message."
-)
-async def help_(ctx):
+def help_pages(mod):
     commands_list = []
 
     for command in list(bot.commands):
-        if not command.hidden:
-            commands_list.append(command)
+        if not mod:
+            if not command.hidden:
+                commands_list.append(command)
+        else:
+            if command.hidden:
+                commands_list.append(command)
 
     commands_list.sort(key=lambda command_in: command_in.name)
 
@@ -108,6 +104,21 @@ async def help_(ctx):
         pages.append(page)
 
         i += 1
+
+    return pages
+
+
+bot.remove_command("help")
+
+
+@bot.command(
+    name="help",
+    aliases=["h"],
+    help="Used for getting this message."
+)
+async def help_(ctx):
+    pages = help_pages(False)
+    total_pages = len(pages)
 
     n = 0
 
@@ -167,54 +178,11 @@ async def help_(ctx):
     hidden=True
 )
 async def mod_help(ctx):
-    commands_list = []
+    if ctx.author.id not in mod_ids:
+        return
 
-    for command in list(bot.commands):
-        if command.hidden:
-            commands_list.append(command)
-
-    commands_list.sort(key=lambda command_in: command_in.name)
-
-    grouped_commands_list = [
-        commands_list[i:i + 10] for i in range(0, len(commands_list), 10)
-    ]
-
-    pages = []
-
-    i = 0
-    total_pages = len(grouped_commands_list)
-
-    for group in grouped_commands_list:
-        page = discord.Embed(
-            title=f"Mod Commands",
-            description=f"*Showing page {i + 1} of {total_pages}, "
-                        f"use reactions to switch pages.*",
-            color=0x9ab8d6
-        )
-
-        for command in group:
-            page.add_field(
-                name=command.name,
-                value=(
-                        command.help +
-                        (
-                            f"\n*Usage:* `{command.usage}`" if command.usage
-                            else ""
-                        ) +
-                        (
-                            f"\n*Alias"
-                            f"{'' if len(command.aliases) == 1 else 'es'}"
-                            f":* `{'`, `'.join(command.aliases)}`"
-                            if command.aliases
-                            else ""
-                        )
-                ),
-                inline=False
-            )
-
-        pages.append(page)
-
-        i += 1
+    pages = help_pages(True)
+    total_pages = len(pages)
 
     n = 0
 
@@ -382,11 +350,9 @@ async def rig_coin_flip(ctx, choice=None):
          "(Only works when called by mods.)",
     usage=f"{bot.command_prefix}mode [mode] [action]"
 )
-async def modes_(ctx, *, args):
+async def mode_(ctx, *, args):
     if ctx.author.id not in mod_ids:
         return
-
-    guild = bot.get_guild(732242190260109344)
 
     args_list = args.split(" ")
 
@@ -396,19 +362,32 @@ async def modes_(ctx, *, args):
     if method not in ("enable", "on", "disable", "off", "status"):
         return
 
+    guild = bot.get_guild(732242190260109344)
+
     if mode in ("game nights", "gn"):
         game_nights_role = guild.get_role(778500719292186635)
         member_role = guild.get_role(734096990396350515)
+        muted_role = guild.get_role(734219419760328716)
         game_nights_category = guild.get_channel(779386959897296927)
 
         overwrite = discord.PermissionOverwrite
         enabled_overwrites = {
             game_nights_role: overwrite(read_messages=None),
-            member_role: overwrite(read_messages=None)
+            member_role: overwrite(read_messages=None),
+            muted_role: overwrite(
+                send_messages=False,
+                add_reactions=False,
+                speak=False
+            )
         }
         disabled_overwrites = {
             game_nights_role: overwrite(read_messages=True),
-            member_role: overwrite(read_messages=False)
+            member_role: overwrite(read_messages=False),
+            muted_role: overwrite(
+                send_messages=False,
+                add_reactions=False,
+                speak=False
+            )
         }
 
         if method in ("enable", "on"):
@@ -432,60 +411,50 @@ async def modes_(ctx, *, args):
 
             await ctx.message.add_reaction("✅")
         elif method == "status":
-            game_nights_text_channel = guild.get_channel(779387369567682611)
-            game_nights_voice_channel = guild.get_channel(779387423376277524)
-            muted_role = guild.get_role(734219419760328716)
+            async def send_embed(value):
+                await ctx.send(
+                    embed=discord.Embed(
+                        title="`Game Nights` Mode",
+                        colour=0x9ab8d6
+                    ).add_field(
+                        name="Status",
+                        value=value
+                    )
+                )
+
+            enabled_channels_count = 0
+
+            for channel in game_nights_category.channels:
+                if channel.overwrites == disabled_overwrites:
+                    pass
+                elif channel.overwrites == enabled_overwrites:
+                    enabled_channels_count += 1
+                else:
+                    await send_embed("N/A")
+
+                    return
+
+            if enabled_channels_count == 0:
+                channel_status = False
+            elif enabled_channels_count == len(game_nights_category.channels):
+                channel_status = True
+            else:
+                await send_embed("N/A")
+
+                return
 
             if game_nights_role.colour.value == 0x8fbbda:
                 colour_status = True
             elif game_nights_role.colour.value == 0x000000:
                 colour_status = False
             else:
-                colour_status = None
+                await send_embed("N/A")
 
-            text_overwrites = game_nights_text_channel.overwrites.copy()
-            voice_overwrites = game_nights_voice_channel.overwrites.copy()
-            try:
-                text_overwrites.pop(muted_role)
-            except KeyError:
-                pass
-            try:
-                voice_overwrites.pop(muted_role)
-            except KeyError:
-                pass
+                return
 
-            if (
-                    text_overwrites == enabled_overwrites
-                    and
-                    voice_overwrites == enabled_overwrites
-            ):
-                channel_status = True
-            elif (
-                    text_overwrites == disabled_overwrites
-                    and
-                    voice_overwrites == disabled_overwrites
-            ):
-                channel_status = False
-            else:
-                channel_status = None
+            if channel_status != colour_status:
+                await send_embed("N/A")
 
-            if colour_status == channel_status:
-                status = colour_status and channel_status
-            else:
-                status = None
+                return
 
-            value = {
-                True: "Enabled",
-                False: "Disabled",
-                None: "N/A"
-            }[status]
-
-            embed = discord.Embed(
-                title="`Game Nights` Mode",
-                colour=0x9ab8d6
-            ).add_field(
-                name="Status",
-                value=value
-            )
-
-            await ctx.send(embed=embed)
+            await send_embed("Enabled" if channel_status else "Disabled")
