@@ -54,7 +54,7 @@ async def cease(ctx):
 def help_pages(mod):
     commands_list = []
 
-    for command in list(bot.commands):
+    for command in bot.commands:
         if not mod:
             if not command.hidden:
                 commands_list.append(command)
@@ -458,3 +458,15 @@ async def mode_(ctx, *, args):
                 return
 
             await send_embed("Enabled" if channel_status else "Disabled")
+
+
+@bot.command(
+    name="stats",
+    help="Used for getting the Minecraft server stats, for example"
+         " the TPS.",
+    aliases=["s"]
+)
+async def stats_(_):
+    # this is implemented on the instance
+    # running on the Minecraft server
+    return
