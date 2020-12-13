@@ -264,37 +264,44 @@ async def refresh_ideas_polling(ctx, n):
 
     ideas_channel = bot.get_channel(736325021856694385)
 
-    if ctx.channel == ideas_channel:
-        await ctx.message.delete()
-
-    try:
-        n = int(n)
-
-        if n <= 0:
-            raise ValueError
-    except ValueError:
+    if not n.isdigit():
         return
 
+    n = int(n)
+
     async for message in ideas_channel.history(limit=n):
-        ok = False
+        upvote = None
+        downvote = None
 
         for reaction in message.reactions:
-            if str(reaction.emoji) in (
-                    "<:upvote:734576662229811230>",
-                    "<:downvote:734576698217201674>"
-            ) and reaction.me:
-                ok = True
+            if reaction.me:
+                if str(reaction) == "<:upvote:734576662229811230>":
+                    upvote = True
 
-            if str(reaction.emoji) not in (
+                if str(reaction) == "<:downvote:734576698217201674>":
+                    downvote = True
+
+            if str(reaction) not in (
                     "<:upvote:734576662229811230>",
                     "<:downvote:734576698217201674>",
                     "⭐"
             ):
                 await reaction.clear()
 
-        if not ok:
-            await message.add_reaction("<:upvote:734576662229811230>")
-            await message.add_reaction("<:downvote:734576698217201674>")
+            if message.author in await reaction.users().flatten():
+                await reaction.remove(message.author)
+
+        if not (upvote and downvote):
+            if not message.content.startswith(bot.command_prefix):
+                await message.add_reaction("<:upvote:734576662229811230>")
+                await message.add_reaction("<:downvote:734576698217201674>")
+
+    await ctx.message.add_reaction("✅")
+
+    if ctx.channel == ideas_channel:
+        await asyncio.sleep(5)
+
+        await ctx.message.delete()
 
 
 @bot.command(
@@ -462,8 +469,8 @@ async def mode_(ctx, *, args):
 
 @bot.command(
     name="stats",
-    help="Used for getting the Minecraft server stats, for example"
-         " the TPS.",
+    help="Used for getting the Minecraft server stats, for example "
+         "the TPS.",
     aliases=["s"]
 )
 async def stats_(_):
