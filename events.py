@@ -1,6 +1,7 @@
 import config
 
 import discord
+import asyncio
 
 bot = config.bot
 
@@ -47,5 +48,7 @@ async def on_message(message):
 async def on_member_join(member):
     if member.guild.id != 732242190260109344:
         return
+
+    await asyncio.sleep(5)
 
     await member.guild.system_channel.send(f"o/ {member.mention}")
