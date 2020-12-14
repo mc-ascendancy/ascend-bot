@@ -1,5 +1,7 @@
 import config
 
+import discord
+
 bot = config.bot
 
 
@@ -25,4 +27,25 @@ async def on_message(message):
             await message.add_reaction("<:upvote:734576662229811230>")
             await message.add_reaction("<:downvote:734576698217201674>")
 
+    if message.guild.id == 732242190260109344:
+        if message.channel == message.guild.system_channel:
+            if message.type in (
+                    discord.MessageType.premium_guild_subscription,
+                    discord.MessageType.premium_guild_tier_1,
+                    discord.MessageType.premium_guild_tier_2,
+                    discord.MessageType.premium_guild_tier_3
+            ):
+                await message.channel.send(
+                    f"Thanks {message.author.mention}! "
+                    f"<:swaghappy:734034994108039178>"
+                )
+
     await bot.process_commands(message)
+
+
+@bot.event
+async def on_member_join(member):
+    if member.guild.id != 732242190260109344:
+        return
+
+    await member.guild.system_channel.send(f"o/ {member.mention}")
