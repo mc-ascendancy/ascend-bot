@@ -485,7 +485,8 @@ async def stats_(_):
     name="astats",
     help="Used for getting the Minecraft server stats for admins. "
          "(Only works when called in <#734117420888883231>.)",
-    aliases=["adminstats", "as"]
+    aliases=["adminstats", "as"],
+    hidden=True
 )
 async def admin_stats_(_):
     # this is implemented on the instance
