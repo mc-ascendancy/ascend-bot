@@ -36,8 +36,10 @@ async def on_message(message):
                     discord.MessageType.premium_guild_tier_2,
                     discord.MessageType.premium_guild_tier_3
             ):
+                await asyncio.sleep(5)
+
                 await message.channel.send(
-                    f"Thanks {message.author.mention}! "
+                    f"Thank you **{message.author.name}**! "
                     f"<:swaghappy:734034994108039178>"
                 )
 
@@ -51,4 +53,4 @@ async def on_member_join(member):
 
     await asyncio.sleep(5)
 
-    await member.guild.system_channel.send(f"o/ {member.mention}")
+    await member.guild.system_channel.send(f"Hello **{member.name}**! o/")

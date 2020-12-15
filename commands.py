@@ -269,6 +269,9 @@ async def refresh_ideas_polling(ctx, n):
 
     n = int(n)
 
+    if n == 0:
+        n = None
+
     async for message in ideas_channel.history(limit=n):
         upvote = None
         downvote = None
@@ -292,9 +295,8 @@ async def refresh_ideas_polling(ctx, n):
                 await reaction.remove(message.author)
 
         if not (upvote and downvote):
-            if not message.content.startswith(bot.command_prefix):
-                await message.add_reaction("<:upvote:734576662229811230>")
-                await message.add_reaction("<:downvote:734576698217201674>")
+            await message.add_reaction("<:upvote:734576662229811230>")
+            await message.add_reaction("<:downvote:734576698217201674>")
 
     await ctx.message.add_reaction("✅")
 
@@ -474,6 +476,18 @@ async def mode_(ctx, *, args):
     aliases=["s"]
 )
 async def stats_(_):
+    # this is implemented on the instance
+    # running on the Minecraft server
+    return
+
+
+@bot.command(
+    name="astats",
+    help="Used for getting the Minecraft server stats for admins. "
+         "(Only works when called in <#734117420888883231>.)",
+    aliases=["adminstats", "as"]
+)
+async def admin_stats_(_):
     # this is implemented on the instance
     # running on the Minecraft server
     return
