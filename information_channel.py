@@ -342,8 +342,15 @@ text_15 = discord.Embed(
                 "punishments through the ticket system or modmail feature. We "
                 "will not discuss bans publicly, and if you direct message a "
                 "Staff member on Discord regarding a punishment or appeal, it "
-                "will be ignored. \n\n"
-                "Any reports against either members of the community or "
+                "will be ignored.",
+    color=light_blue
+).set_author(
+    name="Hammer to Fall"
+)
+
+# text_16
+text_16 = discord.Embed(
+    description="Any reports against either members of the community or "
                 "Staff, must be submitted utilizing our ticket system "
                 "or directly reporting the user to Discord. Any other "
                 "means of confronting members or Staff for rule "
@@ -352,7 +359,7 @@ text_15 = discord.Embed(
                 "as harrassment.",
     color=light_blue
 ).set_author(
-    name="Hammer to Fall"
+    name="Reporting Policy"
 )
 
 # a collection of all the embeds in order
@@ -375,5 +382,6 @@ collection = (
     text_12,
     text_13,
     text_14,
-    text_15
+    text_15,
+    text_16
 )
