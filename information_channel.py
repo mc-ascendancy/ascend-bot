@@ -275,7 +275,7 @@ text_13 = discord.Embed(
                 "(https://reddit.com/message/compose?to=/r/ascendancy).\n"
                 "**c.** Regardless of intent, you may not share sexually "
                 "implicit or explicit content of any kind on any of our "
-                "services."
+                "services.\n"
                 "**d.** Regardless of intent, any media with a "
                 "suggestive quality depicting an individual who could " 
                 "reasonably be interpreted as a minor, is not allowed on "
