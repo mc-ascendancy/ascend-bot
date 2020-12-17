@@ -278,7 +278,7 @@ text_13 = discord.Embed(
                 "services.\n"
                 "**d.** Regardless of intent, any media with a "
                 "suggestive quality depicting an individual who could " 
-                "reasonably be interpreted as a minor, is not allowed on "
+                "reasonably be interpreted as a minor is not allowed on "
                 "any of our services.",
     color=light_blue
 ).set_author(
@@ -356,7 +356,7 @@ text_16 = discord.Embed(
                 "means of confronting members or Staff for rule "
                 "violations, in any of our channels or through "
                 "private message, is not permitted and will be treated "
-                "as harrassment.",
+                "as harassment.",
     color=light_blue
 ).set_author(
     name="Reporting Policy"
