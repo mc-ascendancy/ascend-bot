@@ -275,7 +275,11 @@ text_13 = discord.Embed(
                 "(https://reddit.com/message/compose?to=/r/ascendancy).\n"
                 "**c.** Regardless of intent, you may not share sexually "
                 "implicit or explicit content of any kind on any of our "
-                "services.",
+                "services."
+                "**d.** Regardless of intent, any media with a "
+                "suggestive quality depicting an individual who could " 
+                "reasonably be interpreted as a minor, is not allowed on "
+                "any of our services.",
     color=light_blue
 ).set_author(
     name="5. No spamming. No NSFW content."
@@ -338,7 +342,14 @@ text_15 = discord.Embed(
                 "punishments through the ticket system or modmail feature. We "
                 "will not discuss bans publicly, and if you direct message a "
                 "Staff member on Discord regarding a punishment or appeal, it "
-                "will be ignored.",
+                "will be ignored. \n\n"
+                "Any reports against either members of the community or "
+                "Staff, must be submitted utilizing our ticket system "
+                "or directly reporting the user to Discord. Any other "
+                "means of confronting members or Staff for rule "
+                "violations, in any of our channels or through "
+                "private message, is not permitted and will be treated "
+                "as harrassment.",
     color=light_blue
 ).set_author(
     name="Hammer to Fall"
