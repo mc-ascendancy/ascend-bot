@@ -4,13 +4,25 @@ import discord
 import asyncio
 
 bot = config.bot
+mod_ids = config.mod_ids
 
 
 @bot.event
 async def on_ready():
     latency = round(bot.latency, 3) * 1000  # in ms to 3 d.p.
 
+    for guild in bot.guilds:
+        try:
+            await guild.me.edit(nick=f"{bot.user.name} | {bot.command_prefix}")
+        except discord.Forbidden:
+            pass
+
     print(f"Connected successfully as {bot.user} ({latency}ms).")
+
+
+# contains the IDs of users that have already used the bot ping functionality
+# once during the current session
+already_used = []
 
 
 @bot.event
@@ -18,7 +30,9 @@ async def on_message(message):
     if message.author == bot.user:
         return
 
-    if bot.user in message.mentions:
+    if bot.user in message.mentions and message.author.id not in already_used:
+        already_used.append(message.author.id)
+
         await message.channel.send(
             f"Hello! Use `{bot.command_prefix}help` to check out my commands!"
         )
@@ -42,6 +56,11 @@ async def on_message(message):
                     f"Thank you **{message.author.name}**! "
                     f"<:swaghappy:734034994108039178>"
                 )
+
+        if message.author.id in mod_ids:
+            if message.content.startswith("!!"):
+                if message.content[2:6].rstrip() in ("warn", "mute", "ban"):
+                    await message.add_reaction("<:mod:772893560949047378>")
 
     await bot.process_commands(message)
 

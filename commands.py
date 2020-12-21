@@ -7,17 +7,11 @@ import random
 import config
 
 bot = config.bot
+mod_ids = config.mod_ids
 
 # (bot) mods are the mods of the server and (bot) admins are the users
 # in the Discord developer team
 
-mod_ids = (
-    305348568342855680,
-    282513931854151681,
-    355506351830597644,
-    335394052834983938,
-    355366164962082816
-)
 
 
 @bot.command(
