@@ -9,9 +9,9 @@ import config
 bot = config.bot
 mod_ids = config.mod_ids
 
+
 # (bot) mods are the mods of the server and (bot) admins are the users
 # in the Discord developer team
-
 
 
 @bot.command(
