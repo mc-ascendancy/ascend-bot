@@ -275,7 +275,11 @@ text_13 = discord.Embed(
                 "(https://reddit.com/message/compose?to=/r/ascendancy).\n"
                 "**c.** Regardless of intent, you may not share sexually "
                 "implicit or explicit content of any kind on any of our "
-                "services.",
+                "services.\n"
+                "**d.** Regardless of intent, any media with a "
+                "suggestive quality depicting an individual who could " 
+                "reasonably be interpreted as a minor is not allowed on "
+                "any of our services.",
     color=light_blue
 ).set_author(
     name="5. No spamming. No NSFW content."
@@ -344,6 +348,20 @@ text_15 = discord.Embed(
     name="Hammer to Fall"
 )
 
+# text_16
+text_16 = discord.Embed(
+    description="Any reports against either members of the community or "
+                "Staff, must be submitted utilizing our ticket system "
+                "or directly reporting the user to Discord. Any other "
+                "means of confronting members or Staff for rule "
+                "violations, in any of our channels or through "
+                "private message, is not permitted and will be treated "
+                "as harassment.",
+    color=light_blue
+).set_author(
+    name="Reporting Policy"
+)
+
 # a collection of all the embeds in order
 collection = (
     heading_1,
@@ -364,5 +382,6 @@ collection = (
     text_12,
     text_13,
     text_14,
-    text_15
+    text_15,
+    text_16
 )
