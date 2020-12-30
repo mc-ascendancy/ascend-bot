@@ -168,7 +168,8 @@ async def help_(ctx):
 @bot.command(
     name="mhelp",
     aliases=["mh"],
-    help="Used for getting this message.",
+    help="Used for getting this message. "
+         "(Only works when called by bot mods.)",
     hidden=True
 )
 async def mod_help(ctx):
