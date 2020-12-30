@@ -19,6 +19,13 @@ async def on_ready():
 
     print(f"Connected successfully as {bot.user} ({latency}ms).")
 
+    while True:
+        await bot.get_channel(734117420888883231).send(
+            "<@&793981258291740723> Do `.invites`!"
+        )
+
+        await asyncio.sleep(259200)  # 3 days
+
 
 # contains the IDs of users that have already used the bot ping functionality
 # once during the current session
