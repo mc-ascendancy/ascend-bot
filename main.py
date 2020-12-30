@@ -4,6 +4,7 @@
 import setup
 import events
 import commands
+import tasks
 
 
 def run_bot():

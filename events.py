@@ -1,7 +1,7 @@
-import config
-
 import discord
 import asyncio
+
+import config
 
 bot = config.bot
 mod_ids = config.mod_ids
@@ -17,14 +17,15 @@ async def on_ready():
         except discord.Forbidden:
             pass
 
+    await bot.get_channel(734108139158241320).send(
+        f"Connected successfully ({latency}ms)."
+    )
+
+    from tasks import plasma_bot_maintenance
+
+    plasma_bot_maintenance.start()
+
     print(f"Connected successfully as {bot.user} ({latency}ms).")
-
-    while True:
-        await bot.get_channel(734117420888883231).send(
-            "<@&793981258291740723> Do `.invites`!"
-        )
-
-        await asyncio.sleep(259200)  # 3 days
 
 
 # contains the IDs of users that have already used the bot ping functionality
