@@ -431,7 +431,7 @@ async def mode_(ctx, *, args):
     name="ideas",
     aliases=["i"],
     hidden=True,
-    help="Used for doing various things with <#736325021856694385>."
+    help="Used for doing various things with <#736325021856694385>. "
          "(Only works when called by mods and for some functions by staff.)"
 )
 async def ideas_(ctx, function, *, args):
