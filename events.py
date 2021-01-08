@@ -2,9 +2,10 @@ import discord
 import asyncio
 
 import config
+import commands
 
 bot = config.bot
-mod_ids = config.mod_ids
+mod_ids = commands.mod_ids
 
 
 @bot.event
