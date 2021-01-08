@@ -13,11 +13,17 @@ async def set_privileged_ids():
         member.id for member in
         bot.get_guild(732242190260109344).get_role(734097025574109274).members
     )
-
     commands.staff_ids = tuple(
         member.id for member in
         bot.get_guild(732242190260109344).get_role(734100717874446396).members
     )
+
+
+@tasks.loop(minutes=5)
+async def clear_already_used():
+    import events
+
+    events.already_used = []
 
 
 @tasks.loop(hours=72)

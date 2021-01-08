@@ -1,5 +1,6 @@
 import discord
 import asyncio
+import random
 
 import config
 import commands
@@ -15,6 +16,7 @@ async def on_ready():
     import tasks
 
     tasks.set_privileged_ids.start()
+    tasks.clear_already_used.start()
 
     for guild in bot.guilds:
         try:
@@ -31,8 +33,8 @@ async def on_ready():
     print(f"Connected successfully as {bot.user} ({latency}ms).")
 
 
-# contains the IDs of users that have already used the bot ping functionality
-# once during the current session
+# contains the IDs of users that have already used the bot ping
+# functionality once within a set time period
 already_used = []
 
 
@@ -72,6 +74,9 @@ async def on_message(message):
             if message.content.startswith("!!"):
                 if message.content[2:6].rstrip() in ("warn", "mute", "ban"):
                     await message.add_reaction("<:mod:772893560949047378>")
+
+        if random.randrange(420) == 69:
+            await message.add_reaction("<:famcat:788538192004775957>")
 
     await bot.process_commands(message)
 
