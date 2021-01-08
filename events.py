@@ -3,17 +3,15 @@ import asyncio
 import random
 
 import config
-import commands
+from commands import get_mods
 
 bot = config.bot
-mod_ids = commands.mod_ids
 
 
 @bot.event
 async def on_ready():
     import tasks
 
-    tasks.set_privileged_ids.start()
     tasks.clear_already_used.start()
     tasks.set_nickname.start()
     tasks.plasma_bot_maintenance.start()
@@ -64,7 +62,7 @@ async def on_message(message):
                     f"<:swaghappy:734034994108039178>"
                 )
 
-        if message.author.id in mod_ids:
+        if message.author.id in get_mods():
             if message.content.startswith("!!"):
                 if message.content[2:6].rstrip() in ("warn", "mute", "ban"):
                     await message.add_reaction("<:mod:772893560949047378>")

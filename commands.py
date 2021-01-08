@@ -3,16 +3,31 @@ import sys
 import asyncio
 import discord
 import random
+import textwrap
 
 import config
 
 bot = config.bot
 
+
+def get_mods():
+    return bot.get_guild(
+        732242190260109344
+    ).get_role(
+        734097025574109274
+    ).members
+
+
+def get_staff():
+    return bot.get_guild(
+        732242190260109344
+    ).get_role(
+        734100717874446396
+    ).members
+
+
 # (bot) mods are the mods of the server and (bot) admins are the users
 # in the Discord developer team
-
-mod_ids = None
-staff_ids = None
 
 
 @bot.command(
@@ -22,7 +37,7 @@ staff_ids = None
          "(Only works when called by bot mods.)"
 )
 async def ping(ctx):
-    if ctx.author.id not in mod_ids and not bot.is_owner(ctx.author):
+    if ctx.author not in get_mods() and not await bot.is_owner(ctx.author):
         return
 
     latency = round(bot.latency, 3) * 1000  # in ms to 3 d.p.
@@ -71,9 +86,10 @@ def help_pages(mod):
     for group in grouped_commands_list:
         page = discord.Embed(
             title=f"Commands",
-            description=f"*Showing page {i + 1} of {total_pages}, "
-                        f"use reactions to switch pages.*",
             color=0x9ab8d6
+        ).set_footer(
+            text=f"Showing page {i + 1} of {total_pages}, "
+                 f"use reactions to switch pages."
         )
 
         for command in group:
@@ -174,7 +190,7 @@ async def help_(ctx):
     hidden=True
 )
 async def mod_help(ctx):
-    if ctx.author.id not in mod_ids and not bot.is_owner(ctx.author):
+    if ctx.author not in get_mods() and not await bot.is_owner(ctx.author):
         return
 
     pages = help_pages(True)
@@ -239,7 +255,7 @@ async def mod_help(ctx):
          "(Only works when called by bot mods.)"
 )
 async def information_setup(ctx):
-    if ctx.author.id not in mod_ids and not bot.is_owner(ctx.author):
+    if ctx.author not in get_mods() and not await bot.is_owner(ctx.author):
         return
 
     from information_channel import collection
@@ -249,66 +265,12 @@ async def information_setup(ctx):
 
 
 @bot.command(
-    name="rip",
-    hidden=True,
-    help="Used to refresh the polling in <#736325021856694385>. "
-         "(Only works when called by bot mods.)"
-)
-async def refresh_ideas_polling(ctx, n):
-    if ctx.author.id not in mod_ids and not bot.is_owner(ctx.author):
-        return
-
-    ideas_channel = bot.get_channel(736325021856694385)
-
-    if not n.isdigit():
-        return
-
-    n = int(n)
-
-    if n == 0:
-        n = None
-
-    async for message in ideas_channel.history(limit=n):
-        upvote = None
-        downvote = None
-
-        for reaction in message.reactions:
-            if reaction.me:
-                if str(reaction) == "<:upvote:734576662229811230>":
-                    upvote = True
-
-                if str(reaction) == "<:downvote:734576698217201674>":
-                    downvote = True
-
-            if str(reaction) not in (
-                    "<:upvote:734576662229811230>",
-                    "<:downvote:734576698217201674>",
-                    "⭐"
-            ):
-                await reaction.clear()
-
-            if message.author in await reaction.users().flatten():
-                await reaction.remove(message.author)
-
-        if not (upvote and downvote):
-            await message.add_reaction("<:upvote:734576662229811230>")
-            await message.add_reaction("<:downvote:734576698217201674>")
-
-    await ctx.message.add_reaction("✅")
-
-    if ctx.channel == ideas_channel:
-        await asyncio.sleep(5)
-
-        await ctx.message.delete()
-
-
-@bot.command(
     name="cflip",
     aliases=["cf"],
     help="Used to flip a virtual coin."
 )
 async def coin_flip(ctx):
-    if ctx.author.id in mod_ids or bot.is_owner(ctx.author):
+    if ctx.author in get_mods() or await bot.is_owner(ctx.author):
         if not rigged_choice:
             choice = random.choice(("heads", "tails"))
         else:
@@ -330,7 +292,7 @@ rigged_choice = None
          "(Only works when called by bot mods.)"
 )
 async def rig_coin_flip(ctx, choice=None):
-    if ctx.author.id not in mod_ids and not bot.is_owner(ctx.author):
+    if ctx.author not in get_mods() and not await bot.is_owner(ctx.author):
         return
 
     global rigged_choice
@@ -356,7 +318,7 @@ async def rig_coin_flip(ctx, choice=None):
     usage=f"{bot.command_prefix}mode [mode] [action]"
 )
 async def mode_(ctx, *, args):
-    if ctx.author.id not in mod_ids and not bot.is_owner(ctx.author):
+    if ctx.author not in get_mods() and not await bot.is_owner(ctx.author):
         return
 
     args_list = args.split(" ")
@@ -466,25 +428,252 @@ async def mode_(ctx, *, args):
 
 
 @bot.command(
-    name="stats",
-    help="Used for getting the Minecraft server stats, for example "
-         "the TPS.",
-    aliases=["s"]
+    name="ideas",
+    aliases=["i"],
+    hidden=True,
+    help="Used for doing various things with <#736325021856694385>."
+         "(Only works when called by mods and for some functions by staff.)"
 )
-async def stats_(_):
-    # this is implemented on the instance
-    # running on the Minecraft server
-    return
+async def ideas_(ctx, function, *, args):
+    author = ctx.author
 
+    if author.id not in get_staff() and not await bot.is_owner(author):
+        return
 
-@bot.command(
-    name="astats",
-    help="Used for getting the Minecraft server stats for admins. "
-         "(Only works when called in <#734117420888883231>.)",
-    aliases=["adminstats", "as"],
-    hidden=True
-)
-async def admin_stats_(_):
-    # this is implemented on the instance
-    # running on the Minecraft server
-    return
+    ideas_channel = bot.get_channel(736325021856694385)
+
+    args_list = args.split(" ")
+
+    if function.lower() in ("refresh", "r"):
+        if author.id not in get_mods() and not await bot.is_owner(author):
+            return
+
+        if len(args_list) != 1:
+            return
+
+        n = args_list[0]
+
+        if not n.isdigit():
+            return
+
+        n = int(n)
+
+        async for message in ideas_channel.history(
+                limit=n if n != 0 else None
+        ):
+            upvote = None
+            downvote = None
+
+            for reaction in message.reactions:
+                if reaction.me:
+                    if str(reaction) == "<:upvote:734576662229811230>":
+                        upvote = True
+
+                    if str(reaction) == "<:downvote:734576698217201674>":
+                        downvote = True
+
+                if str(reaction) not in (
+                        "<:upvote:734576662229811230>",
+                        "<:downvote:734576698217201674>",
+                        "⭐"
+                ):
+                    await reaction.clear()
+                elif message.author in await reaction.users().flatten():
+                    await reaction.remove(message.author)
+
+            if not (upvote and downvote):
+                await message.add_reaction("<:upvote:734576662229811230>")
+                await message.add_reaction(
+                    "<:downvote:734576698217201674>")
+
+        await ctx.message.add_reaction("✅")
+
+        if ctx.channel == ideas_channel:
+            await asyncio.sleep(5)
+
+            await ctx.message.delete()
+    elif function.lower() in ("list", "l"):
+        if len(args_list) != 2:
+            return
+
+        criteria = args_list[0]
+        order = args_list[1]
+
+        if order in ("a", "asc", "ascending"):
+            desc_order = False
+        elif order in ("d", "desc", "descending"):
+            desc_order = True
+        else:
+            return
+
+        messages = await ideas_channel.history().flatten()
+
+        def get_reaction_count(msg, emote):
+            reacts = {str(react): react for react in msg.reactions}
+
+            return reacts[emote].count
+
+        message_values = {}
+
+        for message in messages:
+            upvotes = get_reaction_count(
+                message,
+                "<:upvote:734576662229811230>"
+            )
+            downvotes = get_reaction_count(
+                message,
+                "<:downvote:734576698217201674>"
+            )
+
+            message_values.update(
+                {message: (upvotes, downvotes, round(upvotes / downvotes, 3))}
+            )
+
+        if criteria in ("u", "upvotes"):
+            criteria = "u"
+
+            message_values.update(
+                {}
+            )
+
+            messages.sort(
+                reverse=desc_order,
+                key=lambda msg: message_values[msg][0]
+            )
+        elif criteria in ("d", "downvotes"):
+            criteria = "d"
+
+            messages.sort(
+                reverse=desc_order,
+                key=lambda msg: message_values[msg][1]
+            )
+        elif criteria in ("r", "ratio"):
+            criteria = "r"
+
+            messages.sort(
+                reverse=desc_order,
+                key=lambda msg: message_values[msg][2]
+            )
+        elif criteria in ("t", "time"):
+            criteria = "t"
+
+            messages.sort(
+                reverse=desc_order,
+                key=lambda msg: msg.created_at
+            )
+        else:
+            return
+
+        grouped_messages = [
+            messages[i:i + 10] for i in range(0, len(messages), 10)
+        ]
+
+        pages = []
+
+        i = 0
+
+        total_pages = len(grouped_messages)
+
+        criteria_index = {
+            "u": "upvotes",
+            "d": "downvotes",
+            "r": "upvote to downvote ratio",
+            "t": "time"
+        }
+
+        for group in grouped_messages:
+            page = discord.Embed(
+                title=f"Ideas",
+                description=f"Sorted by {criteria_index[criteria]} in "
+                            f"{'descending' if desc_order else 'ascending'}"
+                            f" order.\n",
+                color=0x9ab8d6
+            ).set_footer(
+                text=f"Showing page {i + 1} of {total_pages}, "
+                     f"use reactions to switch pages."
+            )
+
+            for message in group:
+                page.add_field(
+                    name=f"{messages.index(message) + 1}. {message.id}",
+                    value=f"> {textwrap.shorten(message.content, 450)}\n"
+                          f"by {message.author.mention}\n\n"
+                          f"*{message_values[message][0]} upvotes • "
+                          f"{message_values[message][1]} downvotes • "
+                          f"{message_values[message][2]} upvotes to "
+                          f"downvotes • "
+                          f"{message.created_at.strftime('%Y-%m-%d %H:%M')} • "
+                          f"[Jump]({message.jump_url})*",
+                    inline=False
+                )
+
+                pages.append(page)
+
+                i += 1
+
+        n = 0
+
+        ideas_list = await ctx.send(embed=pages[n])
+
+        await ideas_list.add_reaction("◀️")
+        await ideas_list.add_reaction("▶️")
+
+        def check(reaction_in, user_in):
+            return user_in == ctx.author and str(reaction_in.emoji) in (
+                "◀️",
+                "▶️"
+            )
+
+        while True:
+            try:
+                reaction, user = await bot.wait_for(
+                    "reaction_add",
+                    check=check,
+                    timeout=900
+                )
+
+                if str(reaction.emoji) == "▶️":
+                    if n + 2 > total_pages:
+                        pass
+                    else:
+                        n += 1
+
+                        await ideas_list.edit(embed=pages[n])
+
+                    await ideas_list.remove_reaction(reaction, user)
+                elif str(reaction.emoji) == "◀️":
+                    if n == 0:
+                        pass
+                    else:
+                        n -= 1
+
+                        await ideas_list.edit(embed=pages[n])
+
+                    await ideas_list.remove_reaction(reaction, user)
+                else:
+                    await ideas_list.remove_reaction(reaction, user)
+            except asyncio.TimeoutError:
+                break
+
+    @bot.command(
+        name="stats",
+        help="Used for getting the Minecraft server stats, for example "
+             "the TPS.",
+        aliases=["s"]
+    )
+    async def stats_(_):
+        # this is implemented on the instance
+        # running on the Minecraft server
+        return
+
+    @bot.command(
+        name="astats",
+        help="Used for getting the Minecraft server stats for admins. "
+             "(Only works when called in <#734117420888883231>.)",
+        aliases=["adminstats", "as"],
+        hidden=True
+    )
+    async def admin_stats_(_):
+        # this is implemented on the instance
+        # running on the Minecraft server
+        return
