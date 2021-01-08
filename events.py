@@ -11,24 +11,18 @@ mod_ids = commands.mod_ids
 
 @bot.event
 async def on_ready():
-    latency = round(bot.latency, 3) * 1000  # in ms to 3 d.p.
-
     import tasks
 
     tasks.set_privileged_ids.start()
     tasks.clear_already_used.start()
+    tasks.set_nickname.start()
+    tasks.plasma_bot_maintenance.start()
 
-    for guild in bot.guilds:
-        try:
-            await guild.me.edit(nick=f"{bot.user.name} | {bot.command_prefix}")
-        except discord.Forbidden:
-            pass
+    latency = round(bot.latency, 3) * 1000  # in ms to 3 d.p.
 
     await bot.get_channel(734108139158241320).send(
         f"Connected successfully ({latency}ms)."
     )
-
-    tasks.plasma_bot_maintenance.start()
 
     print(f"Connected successfully as {bot.user} ({latency}ms).")
 

@@ -1,3 +1,4 @@
+import discord
 from discord.ext import tasks
 
 import config
@@ -24,6 +25,15 @@ async def clear_already_used():
     import events
 
     events.already_used = []
+
+
+@tasks.loop(hours=24)
+async def set_nickname():
+    for guild in bot.guilds:
+        try:
+            await guild.me.edit(nick=f"{bot.user.name} | {bot.command_prefix}")
+        except discord.Forbidden:
+            pass
 
 
 @tasks.loop(hours=72)
