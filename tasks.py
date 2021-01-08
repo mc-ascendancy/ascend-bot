@@ -5,6 +5,21 @@ import config
 bot = config.bot
 
 
+@tasks.loop(count=1)
+async def set_privileged_ids():
+    import commands
+
+    commands.mod_ids = tuple(
+        member.id for member in
+        bot.get_guild(732242190260109344).get_role(734097025574109274).members
+    )
+
+    commands.staff_ids = tuple(
+        member.id for member in
+        bot.get_guild(732242190260109344).get_role(734100717874446396).members
+    )
+
+
 @tasks.loop(hours=72)
 async def plasma_bot_maintenance():
     await bot.get_channel(734117420888883231).send(

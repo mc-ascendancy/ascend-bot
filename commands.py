@@ -7,11 +7,12 @@ import random
 import config
 
 bot = config.bot
-mod_ids = config.mod_ids
-
 
 # (bot) mods are the mods of the server and (bot) admins are the users
 # in the Discord developer team
+
+mod_ids = None
+staff_ids = None
 
 
 @bot.command(
@@ -21,7 +22,7 @@ mod_ids = config.mod_ids
          "(Only works when called by bot mods.)"
 )
 async def ping(ctx):
-    if ctx.author.id not in mod_ids:
+    if ctx.author.id not in mod_ids and not bot.is_owner(ctx.author):
         return
 
     latency = round(bot.latency, 3) * 1000  # in ms to 3 d.p.
@@ -173,7 +174,7 @@ async def help_(ctx):
     hidden=True
 )
 async def mod_help(ctx):
-    if ctx.author.id not in mod_ids:
+    if ctx.author.id not in mod_ids and not bot.is_owner(ctx.author):
         return
 
     pages = help_pages(True)
@@ -238,7 +239,7 @@ async def mod_help(ctx):
          "(Only works when called by bot mods.)"
 )
 async def information_setup(ctx):
-    if ctx.author.id not in mod_ids:
+    if ctx.author.id not in mod_ids and not bot.is_owner(ctx.author):
         return
 
     from information_channel import collection
@@ -254,7 +255,7 @@ async def information_setup(ctx):
          "(Only works when called by bot mods.)"
 )
 async def refresh_ideas_polling(ctx, n):
-    if ctx.author.id not in mod_ids:
+    if ctx.author.id not in mod_ids and not bot.is_owner(ctx.author):
         return
 
     ideas_channel = bot.get_channel(736325021856694385)
@@ -307,7 +308,7 @@ async def refresh_ideas_polling(ctx, n):
     help="Used to flip a virtual coin."
 )
 async def coin_flip(ctx):
-    if ctx.author.id in mod_ids:
+    if ctx.author.id in mod_ids or bot.is_owner(ctx.author):
         if not rigged_choice:
             choice = random.choice(("heads", "tails"))
         else:
@@ -329,7 +330,7 @@ rigged_choice = None
          "(Only works when called by bot mods.)"
 )
 async def rig_coin_flip(ctx, choice=None):
-    if ctx.author.id not in mod_ids:
+    if ctx.author.id not in mod_ids and not bot.is_owner(ctx.author):
         return
 
     global rigged_choice
@@ -355,7 +356,7 @@ async def rig_coin_flip(ctx, choice=None):
     usage=f"{bot.command_prefix}mode [mode] [action]"
 )
 async def mode_(ctx, *, args):
-    if ctx.author.id not in mod_ids:
+    if ctx.author.id not in mod_ids and not bot.is_owner(ctx.author):
         return
 
     args_list = args.split(" ")

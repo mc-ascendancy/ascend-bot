@@ -11,6 +11,10 @@ mod_ids = config.mod_ids
 async def on_ready():
     latency = round(bot.latency, 3) * 1000  # in ms to 3 d.p.
 
+    import tasks
+
+    tasks.set_privileged_ids.start()
+
     for guild in bot.guilds:
         try:
             await guild.me.edit(nick=f"{bot.user.name} | {bot.command_prefix}")
@@ -21,9 +25,7 @@ async def on_ready():
         f"Connected successfully ({latency}ms)."
     )
 
-    from tasks import plasma_bot_maintenance
-
-    plasma_bot_maintenance.start()
+    tasks.plasma_bot_maintenance.start()
 
     print(f"Connected successfully as {bot.user} ({latency}ms).")
 
