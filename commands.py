@@ -2,8 +2,10 @@ import sys
 
 import asyncio
 import discord
+from discord.ext import commands
 import random
 import textwrap
+from num2words import num2words
 
 import config
 
@@ -315,7 +317,7 @@ async def rig_coin_flip(ctx, choice=None):
     aliases=["m"],
     help="Used for enabling, disabling, and getting the statuses of modes. "
          "(Only works when called by mods.)",
-    usage=f"{bot.command_prefix}mode [mode] [action]"
+    usage=f"{bot.command_prefix}mode [game nights] [enable/disable]"
 )
 async def mode_(ctx, *, args):
     if ctx.author not in get_mods() and not await bot.is_owner(ctx.author):
@@ -432,12 +434,18 @@ async def mode_(ctx, *, args):
     aliases=["i"],
     hidden=True,
     help="Used for doing various things with <#736325021856694385>. "
-         "(Only works when called by mods and for some functions by staff.)"
+         "(Has a 30 second cooldown "
+         "and a maximum concurrent use of 1 per user.)",
+    usage=f"{bot.command_prefix}ideas "
+          f"[refresh (with no further arguments)/list] "
+          f"[upvotes/downvotes/ratio/points] [ascending/descending]"
 )
+@commands.cooldown(1, 30, type=commands.BucketType.user)
+@commands.max_concurrency(1, per=commands.BucketType.user)
 async def ideas_(ctx, function, *, args):
     author = ctx.author
 
-    if author.id not in get_staff() and not await bot.is_owner(author):
+    if author not in get_staff() and not await bot.is_owner(author):
         return
 
     ideas_channel = bot.get_channel(736325021856694385)
@@ -445,7 +453,7 @@ async def ideas_(ctx, function, *, args):
     args_list = args.split(" ")
 
     if function.lower() in ("refresh", "r"):
-        if author.id not in get_mods() and not await bot.is_owner(author):
+        if author not in get_mods() and not await bot.is_owner(author):
             return
 
         if len(args_list) != 1:
@@ -506,7 +514,7 @@ async def ideas_(ctx, function, *, args):
         else:
             return
 
-        messages = await ideas_channel.history().flatten()
+        messages = await ideas_channel.history(limit=None).flatten()
 
         def get_reaction_count(msg, emote):
             reacts = {str(react): react for react in msg.reactions}
@@ -526,15 +534,18 @@ async def ideas_(ctx, function, *, args):
             )
 
             message_values.update(
-                {message: (upvotes, downvotes, round(upvotes / downvotes, 3))}
+                {
+                    message: (
+                        upvotes,
+                        downvotes,
+                        round(upvotes / downvotes, 3),
+                        upvotes - downvotes
+                    )
+                }
             )
 
         if criteria in ("u", "upvotes"):
             criteria = "u"
-
-            message_values.update(
-                {}
-            )
 
             messages.sort(
                 reverse=desc_order,
@@ -554,12 +565,12 @@ async def ideas_(ctx, function, *, args):
                 reverse=desc_order,
                 key=lambda msg: message_values[msg][2]
             )
-        elif criteria in ("t", "time"):
-            criteria = "t"
+        elif criteria in ("p", "points"):
+            criteria = "p"
 
             messages.sort(
                 reverse=desc_order,
-                key=lambda msg: msg.created_at
+                key=lambda msg: message_values[msg][3]
             )
         else:
             return
@@ -578,15 +589,15 @@ async def ideas_(ctx, function, *, args):
             "u": "upvotes",
             "d": "downvotes",
             "r": "upvote to downvote ratio",
-            "t": "time"
+            "p": "points"
         }
 
         for group in grouped_messages:
             page = discord.Embed(
                 title=f"Ideas",
-                description=f"Sorted by {criteria_index[criteria]} in "
-                            f"{'descending' if desc_order else 'ascending'}"
-                            f" order.\n",
+                description=f"*Sorted by **{criteria_index[criteria]}** in **"
+                            f"{'descending' if desc_order else 'ascending'}**"
+                            f" order.*",
                 color=0x9ab8d6
             ).set_footer(
                 text=f"Showing page {i + 1} of {total_pages}, "
@@ -594,45 +605,50 @@ async def ideas_(ctx, function, *, args):
             )
 
             for message in group:
+                index = messages.index(message)
+
                 page.add_field(
-                    name=f"{messages.index(message) + 1}. {message.id}",
-                    value=f"> {textwrap.shorten(message.content, 450)}\n"
-                          f"by {message.author.mention}\n\n"
-                          f"*{message_values[message][0]} upvotes • "
-                          f"{message_values[message][1]} downvotes • "
-                          f"{message_values[message][2]} upvotes to "
-                          f"downvotes • "
-                          f"{message.created_at.strftime('%Y-%m-%d %H:%M')} • "
-                          f"[Jump]({message.jump_url})*",
+                    name=(
+                        f"{num2words(index + 1, to='ordinal_num')} "
+                        f"by {message.author.name} "
+                        f"(on {message.created_at.strftime('%d %b %Y')})"
+                    ),
+                    value=(
+                        f"{textwrap.shorten(message.content, 450)}\n"
+                        f"([here]({message.jump_url}))\n\n"
+                        f"*Upvotes: `{message_values[message][0]}` • "
+                        f"Downvotes: `{message_values[message][1]}` • "
+                        f"Upvotes/Downvotes: `{message_values[message][2]}` • "
+                        f"Points: `{message_values[message][3]}`*"
+                    ),
                     inline=False
                 )
 
-                pages.append(page)
+            pages.append(page)
 
-                i += 1
+            i += 1
 
         n = 0
 
         ideas_list = await ctx.send(embed=pages[n])
 
-        await ideas_list.add_reaction("◀️")
-        await ideas_list.add_reaction("▶️")
+        react_emotes = ("◀️", "❌", "▶️")
+
+        for react_emote in react_emotes:
+            await ideas_list.add_reaction(react_emote)
 
         def check(reaction_in, user_in):
-            return user_in == ctx.author and str(reaction_in.emoji) in (
-                "◀️",
-                "▶️"
-            )
+            return user_in == ctx.author and str(reaction_in) in react_emotes
 
         while True:
             try:
                 reaction, user = await bot.wait_for(
                     "reaction_add",
                     check=check,
-                    timeout=900
+                    timeout=300
                 )
 
-                if str(reaction.emoji) == "▶️":
+                if str(reaction) == "▶️":
                     if n + 2 > total_pages:
                         pass
                     else:
@@ -641,7 +657,7 @@ async def ideas_(ctx, function, *, args):
                         await ideas_list.edit(embed=pages[n])
 
                     await ideas_list.remove_reaction(reaction, user)
-                elif str(reaction.emoji) == "◀️":
+                elif str(reaction) == "◀️":
                     if n == 0:
                         pass
                     else:
@@ -650,30 +666,36 @@ async def ideas_(ctx, function, *, args):
                         await ideas_list.edit(embed=pages[n])
 
                     await ideas_list.remove_reaction(reaction, user)
+                elif str(reaction) == "❌":
+                    await ideas_list.remove_reaction(reaction, user)
+
+                    break
                 else:
                     await ideas_list.remove_reaction(reaction, user)
             except asyncio.TimeoutError:
                 break
 
-    @bot.command(
-        name="stats",
-        help="Used for getting the Minecraft server stats, for example "
-             "the TPS.",
-        aliases=["s"]
-    )
-    async def stats_(_):
-        # this is implemented on the instance
-        # running on the Minecraft server
-        return
 
-    @bot.command(
-        name="astats",
-        help="Used for getting the Minecraft server stats for admins. "
-             "(Only works when called in <#734117420888883231>.)",
-        aliases=["adminstats", "as"],
-        hidden=True
-    )
-    async def admin_stats_(_):
-        # this is implemented on the instance
-        # running on the Minecraft server
-        return
+@bot.command(
+    name="stats",
+    help="Used for getting the Minecraft server stats, for example "
+         "the TPS.",
+    aliases=["s"]
+)
+async def stats_(_):
+    # this is implemented on the instance
+    # running on the Minecraft server
+    return
+
+
+@bot.command(
+    name="astats",
+    help="Used for getting the Minecraft server stats for admins. "
+         "(Only works when called in <#734117420888883231>.)",
+    aliases=["adminstats", "as"],
+    hidden=True
+)
+async def admin_stats_(_):
+    # this is implemented on the instance
+    # running on the Minecraft server
+    return
