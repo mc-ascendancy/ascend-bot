@@ -437,8 +437,8 @@ async def mode_(ctx, *, args):
          "(Has a 30 second cooldown, "
          "a maximum concurrent usege of 1 per user and only works when called by mods.)",
     usage=f"{bot.command_prefix}ideas "
-          f"[refresh (with no further arguments)/list] "
-          f"[upvotes/downvotes/ratio/points] [ascending/descending]"
+          f"[refresh/list] "
+          f"[number|upvotes/downvotes/ratio/points] [ascending/descending]"
 )
 @commands.cooldown(1, 30, type=commands.BucketType.user)
 @commands.max_concurrency(1, per=commands.BucketType.user)
