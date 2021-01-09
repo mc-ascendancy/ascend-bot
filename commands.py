@@ -552,28 +552,28 @@ async def ideas_(ctx, function, *, args):
 
             messages.sort(
                 reverse=desc_order,
-                key=lambda msg: message_values[msg][0]
+                key=lambda msg: (message_values[msg][0], message.created_at)
             )
         elif criteria in ("d", "downvotes"):
             criteria = "d"
 
             messages.sort(
                 reverse=desc_order,
-                key=lambda msg: message_values[msg][1]
+                key=lambda msg: (message_values[msg][1], message.created_at)
             )
         elif criteria in ("r", "ratio"):
             criteria = "r"
 
             messages.sort(
                 reverse=desc_order,
-                key=lambda msg: message_values[msg][2]
+                key=lambda msg: (message_values[msg][2], message.created_at)
             )
         elif criteria in ("p", "points"):
             criteria = "p"
 
             messages.sort(
                 reverse=desc_order,
-                key=lambda msg: message_values[msg][3]
+                key=lambda msg: (message_values[msg][3], message.created_at)
             )
         else:
             return
