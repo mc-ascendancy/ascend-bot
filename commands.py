@@ -129,6 +129,8 @@ bot.remove_command("help")
     aliases=["h"],
     help="Used for getting this message."
 )
+@commands.cooldown(1, 5, type=commands.BucketType.user)
+@commands.max_concurrency(1, per=commands.BucketType.user)
 async def help_(ctx):
     pages = help_pages(False)
     total_pages = len(pages)
@@ -137,21 +139,23 @@ async def help_(ctx):
 
     help_message = await ctx.send(embed=pages[n])
 
-    await help_message.add_reaction("◀️")
-    await help_message.add_reaction("▶️")
+    react_emotes = ("◀️", "❌", "▶️")
+
+    for react_emote in react_emotes:
+        await help_message.add_reaction(react_emote)
 
     def check(reaction_in, user_in):
-        return user_in == ctx.author and str(reaction_in.emoji) in ("◀️", "▶️")
+        return user_in == ctx.author and str(reaction_in) in react_emotes
 
     while True:
         try:
             reaction, user = await bot.wait_for(
                 "reaction_add",
                 check=check,
-                timeout=90
+                timeout=60
             )
 
-            if str(reaction.emoji) == "▶️":
+            if str(reaction) == "▶️":
                 if n + 2 > total_pages:
                     pass
                 else:
@@ -159,11 +163,8 @@ async def help_(ctx):
 
                     await help_message.edit(embed=pages[n])
 
-                try:
-                    await help_message.remove_reaction(reaction, user)
-                except discord.Forbidden:
-                    pass
-            elif str(reaction.emoji) == "◀️":
+                await help_message.remove_reaction(reaction, user)
+            elif str(reaction) == "◀️":
                 if n == 0:
                     pass
                 else:
@@ -171,16 +172,16 @@ async def help_(ctx):
 
                     await help_message.edit(embed=pages[n])
 
-                try:
-                    await help_message.remove_reaction(reaction, user)
-                except discord.Forbidden:
-                    pass
+                await help_message.remove_reaction(reaction, user)
+            elif str(reaction) == "❌":
+                await help_message.clear_reactions()
+
+                break
             else:
-                try:
-                    await help_message.remove_reaction(reaction, user)
-                except discord.Forbidden:
-                    pass
+                await help_message.remove_reaction(reaction, user)
         except asyncio.TimeoutError:
+            await help_message.clear_reactions()
+
             break
 
 
@@ -191,6 +192,8 @@ async def help_(ctx):
          "(Only works when called by bot mods.)",
     hidden=True
 )
+@commands.cooldown(1, 5, type=commands.BucketType.user)
+@commands.max_concurrency(1, per=commands.BucketType.user)
 async def mod_help(ctx):
     if ctx.author not in get_mods() and not await bot.is_owner(ctx.author):
         return
@@ -202,21 +205,23 @@ async def mod_help(ctx):
 
     help_message = await ctx.send(embed=pages[n])
 
-    await help_message.add_reaction("◀️")
-    await help_message.add_reaction("▶️")
+    react_emotes = ("◀️", "❌", "▶️")
+
+    for react_emote in react_emotes:
+        await help_message.add_reaction(react_emote)
 
     def check(reaction_in, user_in):
-        return user_in == ctx.author and str(reaction_in.emoji) in ("◀️", "▶️")
+        return user_in == ctx.author and str(reaction_in) in react_emotes
 
     while True:
         try:
             reaction, user = await bot.wait_for(
                 "reaction_add",
                 check=check,
-                timeout=90
+                timeout=60
             )
 
-            if str(reaction.emoji) == "▶️":
+            if str(reaction) == "▶️":
                 if n + 2 > total_pages:
                     pass
                 else:
@@ -224,11 +229,8 @@ async def mod_help(ctx):
 
                     await help_message.edit(embed=pages[n])
 
-                try:
-                    await help_message.remove_reaction(reaction, user)
-                except discord.Forbidden:
-                    pass
-            elif str(reaction.emoji) == "◀️":
+                await help_message.remove_reaction(reaction, user)
+            elif str(reaction) == "◀️":
                 if n == 0:
                     pass
                 else:
@@ -236,16 +238,16 @@ async def mod_help(ctx):
 
                     await help_message.edit(embed=pages[n])
 
-                try:
-                    await help_message.remove_reaction(reaction, user)
-                except discord.Forbidden:
-                    pass
+                await help_message.remove_reaction(reaction, user)
+            elif str(reaction) == "❌":
+                await help_message.clear_reactions()
+
+                break
             else:
-                try:
-                    await help_message.remove_reaction(reaction, user)
-                except discord.Forbidden:
-                    pass
+                await help_message.remove_reaction(reaction, user)
         except asyncio.TimeoutError:
+            await help_message.clear_reactions()
+
             break
 
 
@@ -667,12 +669,14 @@ async def ideas_(ctx, function, *, args):
 
                     await ideas_list.remove_reaction(reaction, user)
                 elif str(reaction) == "❌":
-                    await ideas_list.remove_reaction(reaction, user)
+                    await ideas_list.clear_reactions()
 
                     break
                 else:
                     await ideas_list.remove_reaction(reaction, user)
             except asyncio.TimeoutError:
+                await ideas_list.clear_reactions()
+
                 break
 
 
