@@ -437,7 +437,8 @@ async def mode_(ctx, *, args):
     hidden=True,
     help="Used for doing various things with <#736325021856694385>. "
          "(Has a 30 second cooldown, "
-         "a maximum concurrent usege of 1 per user and only works when called by mods.)",
+         "a maximum concurrent usage of 1 per user and only works "
+         "when called by mods.)",
     usage=f"{bot.command_prefix}ideas "
           f"[refresh/list] "
           f"[number|upvotes/downvotes/ratio/points] [ascending/descending]"
@@ -632,12 +633,12 @@ async def ideas_(ctx, function, *, args):
 
         n = 0
 
-        ideas_list = await ctx.send(embed=pages[n])
+        ideas_message = await ctx.send(embed=pages[n])
 
         react_emotes = ("◀️", "❌", "▶️")
 
         for react_emote in react_emotes:
-            await ideas_list.add_reaction(react_emote)
+            await ideas_message.add_reaction(react_emote)
 
         def check(reaction_in, user_in):
             return user_in == ctx.author and str(reaction_in) in react_emotes
@@ -656,26 +657,26 @@ async def ideas_(ctx, function, *, args):
                     else:
                         n += 1
 
-                        await ideas_list.edit(embed=pages[n])
+                        await ideas_message.edit(embed=pages[n])
 
-                    await ideas_list.remove_reaction(reaction, user)
+                    await ideas_message.remove_reaction(reaction, user)
                 elif str(reaction) == "◀️":
                     if n == 0:
                         pass
                     else:
                         n -= 1
 
-                        await ideas_list.edit(embed=pages[n])
+                        await ideas_message.edit(embed=pages[n])
 
-                    await ideas_list.remove_reaction(reaction, user)
+                    await ideas_message.remove_reaction(reaction, user)
                 elif str(reaction) == "❌":
-                    await ideas_list.clear_reactions()
+                    await ideas_message.clear_reactions()
 
                     break
                 else:
-                    await ideas_list.remove_reaction(reaction, user)
+                    await ideas_message.remove_reaction(reaction, user)
             except asyncio.TimeoutError:
-                await ideas_list.clear_reactions()
+                await ideas_message.clear_reactions()
 
                 break
 
