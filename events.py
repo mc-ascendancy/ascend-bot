@@ -80,4 +80,6 @@ async def on_member_join(member):
 
     await asyncio.sleep(5)
 
-    await member.guild.system_channel.send(f"Hello **{member.name}**! o/")
+    await member.guild.system_channel.send(
+        f"Hello {'fellow ' if member.bot else ''}**{member.name}**! o/"
+    )
