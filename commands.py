@@ -431,6 +431,72 @@ async def mode_(ctx, *, args):
             await send_embed("Enabled" if channel_status else "Disabled")
 
 
+async def refresh_ideas_polling(number):
+    async for message in bot.get_channel(736325021856694385).history(
+            limit=number if number != 0 else None
+    ):
+        upvote = None
+        downvote = None
+
+        upvoted = None
+        downvoted = None
+
+        users_up = set()
+        users_down = set()
+
+        for reaction in message.reactions:
+            if str(reaction) not in (
+                    "<:upvote:734576662229811230>",
+                    "<:downvote:734576698217201674>",
+                    "⭐"
+            ):
+                await reaction.clear()
+            else:
+                users = await reaction.users().flatten()
+
+                if message.author in users:
+                    await reaction.remove(message.author)
+
+                if str(reaction) == "<:upvote:734576662229811230>":
+                    upvote = reaction
+
+                    users_up = set(users)
+
+                    if reaction.me:
+                        upvoted = True
+                elif str(reaction) == "<:downvote:734576698217201674>":
+                    downvote = reaction
+
+                    users_down = set(users)
+
+                    if reaction.me:
+                        downvoted = True
+
+        try:
+            if not (upvoted and downvoted):
+                await message.add_reaction(
+                    "<:upvote:734576662229811230>"
+                )
+                await message.add_reaction(
+                    "<:downvote:734576698217201674>"
+                )
+        except discord.Forbidden as error:
+            if error.code != 90001:
+                raise error
+
+            await message.delete()
+
+            continue
+
+        united = users_up.intersection(users_down)
+        united.discard(bot.user)
+
+        for user in united:
+            await upvote.remove(user)
+
+            await downvote.remove(user)
+
+
 @bot.command(
     name="ideas",
     aliases=["i"],
@@ -467,35 +533,7 @@ async def ideas_(ctx, function, *, args):
         if not n.isdigit():
             return
 
-        n = int(n)
-
-        async for message in ideas_channel.history(
-                limit=n if n != 0 else None
-        ):
-            upvote = None
-            downvote = None
-
-            for reaction in message.reactions:
-                if reaction.me:
-                    if str(reaction) == "<:upvote:734576662229811230>":
-                        upvote = True
-
-                    if str(reaction) == "<:downvote:734576698217201674>":
-                        downvote = True
-
-                if str(reaction) not in (
-                        "<:upvote:734576662229811230>",
-                        "<:downvote:734576698217201674>",
-                        "⭐"
-                ):
-                    await reaction.clear()
-                elif message.author in await reaction.users().flatten():
-                    await reaction.remove(message.author)
-
-            if not (upvote and downvote):
-                await message.add_reaction("<:upvote:734576662229811230>")
-                await message.add_reaction(
-                    "<:downvote:734576698217201674>")
+        await refresh_ideas_polling(int(n))
 
         await ctx.message.add_reaction("✅")
 
@@ -547,28 +585,28 @@ async def ideas_(ctx, function, *, args):
                 }
             )
 
-        if criteria in ("u", "upvotes"):
+        if criteria.lower() in ("u", "upvotes"):
             criteria = "u"
 
             messages.sort(
                 reverse=desc_order,
                 key=lambda msg: (message_values[msg][0], message.created_at)
             )
-        elif criteria in ("d", "downvotes"):
+        elif criteria.lower() in ("d", "downvotes"):
             criteria = "d"
 
             messages.sort(
                 reverse=desc_order,
                 key=lambda msg: (message_values[msg][1], message.created_at)
             )
-        elif criteria in ("r", "ratio"):
+        elif criteria.lower() in ("r", "ratio"):
             criteria = "r"
 
             messages.sort(
                 reverse=desc_order,
                 key=lambda msg: (message_values[msg][2], message.created_at)
             )
-        elif criteria in ("p", "points"):
+        elif criteria.lower() in ("p", "points"):
             criteria = "p"
 
             messages.sort(

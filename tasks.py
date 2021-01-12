@@ -2,14 +2,14 @@ import discord
 from discord.ext import tasks
 
 import config
+import events
+import commands
 
 bot = config.bot
 
 
 @tasks.loop(minutes=5)
 async def clear_already_used():
-    import events
-
     events.already_used = []
 
 
@@ -27,3 +27,8 @@ async def plasma_bot_maintenance():
     await bot.get_channel(734117420888883231).send(
         "<@&793981258291740723> Do `.invites`!"
     )
+
+
+@tasks.loop(minutes=5)
+async def refresh_ideas_polling():
+    await commands.refresh_ideas_polling(5)

@@ -15,6 +15,7 @@ async def on_ready():
     tasks.clear_already_used.start()
     tasks.set_nickname.start()
     tasks.plasma_bot_maintenance.start()
+    tasks.refresh_ideas_polling.start()
 
     latency = round(bot.latency, 3) * 1000  # in ms to 3 d.p.
 
