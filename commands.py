@@ -818,7 +818,6 @@ async def stats_(_):
     name="nation_lookup",
     help="Used for looking up nations. "
          "(Only works when called in <#734117420888883231>.)",
-    aliases=["adminstats", "as"],
     hidden=True
 )
 async def nation_lookup_(_):
@@ -831,7 +830,6 @@ async def nation_lookup_(_):
     name="player_lookup",
     help="Used for looking up players. "
          "(Only works when called in <#734117420888883231>.)",
-    aliases=["adminstats", "as"],
     hidden=True
 )
 async def player_lookup_(_):
