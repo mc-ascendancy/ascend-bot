@@ -31,4 +31,4 @@ async def plasma_bot_maintenance():
 
 @tasks.loop(minutes=5)
 async def refresh_ideas_polling():
-    await commands.refresh_ideas_polling(5)
+    await commands.refresh_ideas_polling(25)
