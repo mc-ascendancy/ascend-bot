@@ -45,8 +45,20 @@ async def on_message(message):
 
     if message.channel.id == 736325021856694385:  # ideas channel
         if not message.content.startswith(bot.command_prefix):
-            await message.add_reaction("<:upvote:734576662229811230>")
-            await message.add_reaction("<:downvote:734576698217201674>")
+            try:
+                await message.add_reaction(
+                    "<:upvote:734576662229811230>"
+                )
+                await message.add_reaction(
+                    "<:downvote:734576698217201674>"
+                )
+            except discord.Forbidden as error:
+                if error.code != 90001:
+                    raise error
+
+                await message.delete()
+
+                return
 
     if message.guild.id == 732242190260109344:
         if message.channel == message.guild.system_channel:
@@ -63,7 +75,7 @@ async def on_message(message):
                     f"<:swaghappy:734034994108039178>"
                 )
 
-        if message.author.id in get_mods():
+        if message.author in get_mods():
             if message.content.startswith("!!"):
                 if message.content[2:6].rstrip() in ("warn", "mute", "ban"):
                     await message.add_reaction("<:mod:772893560949047378>")

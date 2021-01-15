@@ -444,49 +444,84 @@ async def refresh_ideas_polling(number):
         users_up = set()
         users_down = set()
 
+        d = {}
+
         for reaction in message.reactions:
-            if str(reaction) not in (
+            emote = str(reaction)
+
+            if emote not in (
                     "<:upvote:734576662229811230>",
                     "<:downvote:734576698217201674>",
-                    "⭐"
+                    "⭐",
+                    "✅",
+                    "⌛",
+                    "☑️",
+                    "❌"
             ):
                 await reaction.clear()
             else:
+                author = message.author
                 users = await reaction.users().flatten()
 
-                if message.author in users:
-                    await reaction.remove(message.author)
+                if author in users and author not in get_staff():
+                    await reaction.remove(author)
 
-                if str(reaction) == "<:upvote:734576662229811230>":
+                if emote == "<:upvote:734576662229811230>":
                     upvote = reaction
 
                     users_up = set(users)
 
                     if reaction.me:
                         upvoted = True
-                elif str(reaction) == "<:downvote:734576698217201674>":
+                elif emote == "<:downvote:734576698217201674>":
                     downvote = reaction
 
                     users_down = set(users)
 
                     if reaction.me:
                         downvoted = True
+                elif emote in ("✅", "⌛", "☑️", "❌"):
+                    if len(
+                            set(
+                                await reaction.users().flatten()
+                            ).intersection(set(get_staff()))
+                    ) != 0:
+                        d.update({emote: reaction})
+                    else:
+                        await reaction.clear()
 
-        try:
-            if not (upvoted and downvoted):
+        if len(d) > 1:
+            if "✅" in d:
+                d.pop("✅")
+
+                for reaction in d.values():
+                    await reaction.clear()
+            elif "⌛" in d:
+                d.pop("⌛")
+
+                for reaction in d.values():
+                    await reaction.clear()
+            elif "☑️" in d:
+                d.pop("☑️")
+
+                for reaction in d.values():
+                    await reaction.clear()
+
+        if not (upvoted and downvoted):
+            try:
                 await message.add_reaction(
                     "<:upvote:734576662229811230>"
                 )
                 await message.add_reaction(
                     "<:downvote:734576698217201674>"
                 )
-        except discord.Forbidden as error:
-            if error.code != 90001:
-                raise error
+            except discord.Forbidden as error:
+                if error.code != 90001:
+                    raise error
 
-            await message.delete()
+                await message.delete()
 
-            continue
+                continue
 
         united = users_up.intersection(users_down)
         united.discard(bot.user)
@@ -500,22 +535,17 @@ async def refresh_ideas_polling(number):
 @bot.command(
     name="ideas",
     aliases=["i"],
-    hidden=True,
     help="Used for doing various things with <#736325021856694385>. "
-         "(Has a 30 second cooldown, "
-         "a maximum concurrent usage of 1 per user and only works "
-         "when called by mods.)",
+         "(`refresh` only usable by mods.)",
     usage=f"{bot.command_prefix}ideas "
           f"[refresh/list] "
-          f"[number|upvotes/downvotes/ratio/points] [ascending/descending]"
+          f"[number|upvotes/downvotes/points] [ascending/descending] "
+          "{implemented/in progress/approved/neutral/rejected}"
 )
 @commands.cooldown(1, 30, type=commands.BucketType.user)
 @commands.max_concurrency(1, per=commands.BucketType.user)
 async def ideas_(ctx, function, *, args):
     author = ctx.author
-
-    if author not in get_staff() and not await bot.is_owner(author):
-        return
 
     ideas_channel = bot.get_channel(736325021856694385)
 
@@ -542,11 +572,18 @@ async def ideas_(ctx, function, *, args):
 
             await ctx.message.delete()
     elif function.lower() in ("list", "l"):
-        if len(args_list) != 2:
+        if len(args_list) < 2:
             return
+        elif len(args_list) == 2:
+            fltr = None
+        else:
+            fltr = " ".join(args_list[2:])
 
         criteria = args_list[0]
         order = args_list[1]
+
+        if criteria not in ("u", "upvotes", "d", "downvotes", "p", "points"):
+            return
 
         if order in ("a", "asc", "ascending"):
             desc_order = False
@@ -555,12 +592,27 @@ async def ideas_(ctx, function, *, args):
         else:
             return
 
+        if not fltr:
+            pass
+        elif fltr.lower() == "implemented":
+            pass
+        elif fltr.lower() == "in progress":
+            pass
+        elif fltr.lower() == "approved":
+            pass
+        elif fltr.lower() == "neutral":
+            pass
+        elif fltr.lower() == "rejected":
+            pass
+        else:
+            return
+
         messages = await ideas_channel.history(limit=None).flatten()
 
-        def get_reaction_count(msg, emote):
+        def get_reaction_count(msg, emt):
             reacts = {str(react): react for react in msg.reactions}
 
-            return reacts[emote].count
+            return reacts[emt].count
 
         message_values = {}
 
@@ -574,13 +626,42 @@ async def ideas_(ctx, function, *, args):
                 "<:downvote:734576698217201674>"
             )
 
+            status = None
+
+            t = 0
+
+            for reaction in message.reactions:
+                emote = str(reaction)
+
+                if emote == "✅":
+                    status = "implemented"
+
+                    t += 1
+                elif emote == "⌛":
+                    status = "in progress"
+
+                    t += 1
+                elif emote == "☑️":
+                    status = "approved"
+
+                    t += 1
+                elif emote == "❌":
+                    status = "rejected"
+
+                    t += 1
+
+            if t == 0:
+                status = "neutral"
+            elif t != 1:
+                status = "N/A"
+
             message_values.update(
                 {
                     message: (
-                        upvotes,
-                        downvotes,
-                        round(upvotes / downvotes, 3),
-                        upvotes - downvotes
+                        upvotes,  # 0 - upvotes
+                        downvotes - 1,  # 1 - downvotes
+                        upvotes - (downvotes - 1),  # 2 - points
+                        status  # 3 - status
                     )
                 }
             )
@@ -599,22 +680,25 @@ async def ideas_(ctx, function, *, args):
                 reverse=desc_order,
                 key=lambda msg: (message_values[msg][1], message.created_at)
             )
-        elif criteria.lower() in ("r", "ratio"):
-            criteria = "r"
-
-            messages.sort(
-                reverse=desc_order,
-                key=lambda msg: (message_values[msg][2], message.created_at)
-            )
         elif criteria.lower() in ("p", "points"):
             criteria = "p"
 
             messages.sort(
                 reverse=desc_order,
-                key=lambda msg: (message_values[msg][3], message.created_at)
+                key=lambda msg: (message_values[msg][2], message.created_at)
             )
         else:
             return
+
+        if fltr:
+            messages = list(
+                filter(
+                    lambda msg: (
+                        True if message_values[msg][3] == fltr else False
+                    ),
+                    messages
+                )
+            )
 
         grouped_messages = [
             messages[i:i + 10] for i in range(0, len(messages), 10)
@@ -629,16 +713,20 @@ async def ideas_(ctx, function, *, args):
         criteria_index = {
             "u": "upvotes",
             "d": "downvotes",
-            "r": "upvote to downvote ratio",
             "p": "points"
         }
 
         for group in grouped_messages:
             page = discord.Embed(
                 title=f"Ideas",
-                description=f"*Sorted by **{criteria_index[criteria]}** in **"
-                            f"{'descending' if desc_order else 'ascending'}**"
-                            f" order.*",
+                description=(
+                    f"*Sorted by **{criteria_index[criteria]}** in **"
+                    f"{'descending' if desc_order else 'ascending'}**"
+                    f" order"
+                    f"{' and filtered by status' if fltr else ''}"
+                    f"{' (**' + fltr + '**)' if fltr else ''}"
+                    f".*"
+                ),
                 color=0x9ab8d6
             ).set_footer(
                 text=f"Showing page {i + 1} of {total_pages}, "
@@ -659,8 +747,8 @@ async def ideas_(ctx, function, *, args):
                         f"([here]({message.jump_url}))\n\n"
                         f"*Upvotes: `{message_values[message][0]}` • "
                         f"Downvotes: `{message_values[message][1]}` • "
-                        f"Upvotes/Downvotes: `{message_values[message][2]}` • "
-                        f"Points: `{message_values[message][3]}`*"
+                        f"Points: `{message_values[message][2]}` • "
+                        f"Status: `{message_values[message][3]}`*"
                     ),
                     inline=False
                 )
