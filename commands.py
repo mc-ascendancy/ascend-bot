@@ -35,8 +35,7 @@ def get_staff():
 @bot.command(
     aliases=["latency"],
     hidden=True,
-    help="Used to get the ping of the bot. "
-         "(Only works when called by bot mods.)"
+    help="Used to get the ping of the bot."
 )
 async def ping(ctx):
     if ctx.author not in get_mods() and not await bot.is_owner(ctx.author):
@@ -188,14 +187,13 @@ async def help_(ctx):
 @bot.command(
     name="mhelp",
     aliases=["mh"],
-    help="Used for getting this message. "
-         "(Only works when called by bot mods.)",
+    help="Used for getting this message.",
     hidden=True
 )
 @commands.cooldown(1, 5, type=commands.BucketType.user)
 @commands.max_concurrency(1, per=commands.BucketType.user)
 async def mod_help(ctx):
-    if ctx.author not in get_mods() and not await bot.is_owner(ctx.author):
+    if ctx.author not in get_staff() and not await bot.is_owner(ctx.author):
         return
 
     pages = help_pages(True)
@@ -255,8 +253,7 @@ async def mod_help(ctx):
 @bot.command(
     name="is",
     hidden=True,
-    help="Used to set up <#734098917867782214>. "
-         "(Only works when called by bot mods.)"
+    help="Used to set up <#734098917867782214>."
 )
 async def information_setup(ctx):
     if ctx.author not in get_mods() and not await bot.is_owner(ctx.author):
@@ -292,8 +289,7 @@ rigged_choice = None
     name="rcflip",
     hidden=True,
     aliases=["rcf"],
-    help="Used to rig the coin flip command (short term). "
-         "(Only works when called by bot mods.)"
+    help="Used to rig the coin flip command (short term)."
 )
 async def rig_coin_flip(ctx, choice=None):
     if ctx.author not in get_mods() and not await bot.is_owner(ctx.author):
@@ -317,8 +313,7 @@ async def rig_coin_flip(ctx, choice=None):
     name="mode",
     hidden=True,
     aliases=["m"],
-    help="Used for enabling, disabling, and getting the statuses of modes. "
-         "(Only works when called by mods.)",
+    help="Used for enabling, disabling, and getting the statuses of modes.",
     usage=f"{bot.command_prefix}mode [game nights] [enable/disable]"
 )
 async def mode_(ctx, *, args):
@@ -814,6 +809,32 @@ async def ideas_(ctx, function, *, args):
     aliases=["s"]
 )
 async def stats_(_):
+    # this is implemented on the instance
+    # running on the Minecraft server
+    return
+
+
+@bot.command(
+    name="nation_lookup",
+    help="Used for looking up nations. "
+         "(Only works when called in <#734117420888883231>.)",
+    aliases=["adminstats", "as"],
+    hidden=True
+)
+async def nation_lookup_(_):
+    # this is implemented on the instance
+    # running on the Minecraft server
+    return
+
+
+@bot.command(
+    name="player_lookup",
+    help="Used for looking up players. "
+         "(Only works when called in <#734117420888883231>.)",
+    aliases=["adminstats", "as"],
+    hidden=True
+)
+async def player_lookup_(_):
     # this is implemented on the instance
     # running on the Minecraft server
     return
