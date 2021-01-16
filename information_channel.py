@@ -33,7 +33,8 @@ text_1 = discord.Embed(
                 "We invite you to [check out our website]"
                 "(https://www.ascendancyproject.com/) and "
                 "[subreddit community]"
-                "(https://www.reddit.com/r/ascendancy/)!",
+                "(https://www.reddit.com/r/ascendancy/)!\n\n"
+                "Join us at `civ.ascendancyproject.com` (1.16.4).",
     color=light_blue
 ).set_author(
     name="Welcome to the official Discord for Ascendancy: A Minecraft "
@@ -383,6 +384,21 @@ text_16 = discord.Embed(
     name="Reporting Policy"
 )
 
+# text_17
+text_17 = discord.Embed(
+    color=light_blue
+).set_author(
+    name="Minecraft Server"
+).add_field(
+    name="IP Address",
+    value="`civ.ascendancyproject.com`",
+    inline=True
+).add_field(
+    name="Version",
+    value="1.16.4",
+    inline=True
+)
+
 # a collection of all the embeds in order
 collection = (
     heading_1,
@@ -405,5 +421,6 @@ collection = (
     text_13,
     text_14,
     text_15,
-    text_16
+    text_16,
+    text_17
 )
