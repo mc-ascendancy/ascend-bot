@@ -390,7 +390,7 @@ text_17 = discord.Embed(
 ).set_author(
     name="Minecraft Server"
 ).add_field(
-    name="IP Address",
+    name="Address",
     value="`civ.ascendancyproject.com`",
     inline=True
 ).add_field(
