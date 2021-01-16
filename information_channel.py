@@ -52,7 +52,7 @@ heading_2 = discord.Embed(
 text_2 = discord.Embed(
     description="<#734098917867782214>: A channel dedicated to information "
                 "about Ascendancy: A Minecraft Civilization Project.\n"
-                "<#779218188520652820>: A channel dedicated to players " 
+                "<#779218188520652820>: A channel dedicated to players "
                 "opting into specific, category-based roles.\n"
                 "<#734098962570805328>: A channel for important updates.",
     color=light_blue
@@ -81,6 +81,25 @@ text_3 = discord.Embed(
     name="General Channels"
 )
 
+# text_3a
+text_3_ = discord.Embed(
+    description="<#788327472365436958>: A channel to get updates about "
+                "changes in the Minecraft server.\n"
+                "<#788327510810034186>: A place to discuss in-game trading. "
+                "(Do keep rule 6e in mind.)\n"
+                "<#788327572555431956>: Enjoy this small selection of "
+                "screenshots from just a few of our biomes in-game!\n"
+                "<#799773411324330054>: You can report bugs here!\n"
+                "<#788327594344448021>: The place to report players. "
+                "You can also report players in-game by using /report.\n"
+                "<#788341976575115264>: The place where you can stay "
+                "up-to-date on server events, through our very own "
+                "<@733399011230220300>!",
+    color=light_blue
+).set_author(
+    name="Ascendancy Channels"
+)
+
 # text_4
 text_4 = discord.Embed(
     description="<#736210100724826124>: A channel dedicated to players "
@@ -91,6 +110,8 @@ text_4 = discord.Embed(
                 "Minecraft server, or website.\n"
                 "<#736325045617557584>: A channel for players to discuss the "
                 "ideas suggested in <#736325021856694385>.\n"
+                "<#799669552329785374>: A channel specifically for asking "
+                "questions!\n"
                 "<#734098868978843710>: A channel for players to give "
                 "feedback regarding the Discord server, subreddit, Minecraft "
                 "server, or website.",
@@ -277,7 +298,7 @@ text_13 = discord.Embed(
                 "implicit or explicit content of any kind on any of our "
                 "services.\n"
                 "**d.** Regardless of intent, any media with a "
-                "suggestive quality depicting an individual who could " 
+                "suggestive quality depicting an individual who could "
                 "reasonably be interpreted as a minor is not allowed on "
                 "any of our services.",
     color=light_blue
@@ -369,6 +390,7 @@ collection = (
     heading_2,
     text_2,
     text_3,
+    text_3_,
     text_4,
     text_5,
     heading_3,
