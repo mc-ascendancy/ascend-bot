@@ -35,10 +35,9 @@ text_1 = discord.Embed(
                 "[subreddit community]"
                 "(https://www.reddit.com/r/ascendancy/)!\n\n"
                 "Join us at `civ.ascendancyproject.com` (1.16.4).",
-    color=light_blue
-).set_author(
-    name="Welcome to the official Discord for Ascendancy: A Minecraft "
-         "Civilization Project!"
+    color=light_blue,
+    title="Welcome to the official Discord for Ascendancy: A Minecraft "
+          "Civilization Project!"
 )
 
 # heading_2
@@ -56,9 +55,8 @@ text_2 = discord.Embed(
                 "<#779218188520652820>: A channel dedicated to players "
                 "opting into specific, category-based roles.\n"
                 "<#734098962570805328>: A channel for important updates.",
-    color=light_blue
-).set_author(
-    name="Meta Channels"
+    color=light_blue,
+    title="Meta Channels"
 )
 
 # text_3
@@ -77,9 +75,8 @@ text_3 = discord.Embed(
                 "<#734119161437093889>: An archive of posts from "
                 "[our subreddit community]"
                 "(https://www.reddit.com/r/ascendancy/).",
-    color=light_blue
-).set_author(
-    name="General Channels"
+    color=light_blue,
+    title="General Channels"
 )
 
 # text_3a
@@ -96,9 +93,8 @@ text_3_ = discord.Embed(
                 "<#788341976575115264>: The place where you can stay "
                 "up-to-date on server events, through our very own "
                 "<@733399011230220300>!",
-    color=light_blue
-).set_author(
-    name="Ascendancy Channels"
+    color=light_blue,
+    title="Ascendancy Channels"
 )
 
 # text_4
@@ -116,9 +112,8 @@ text_4 = discord.Embed(
                 "<#734098868978843710>: A channel for players to give "
                 "feedback regarding the Discord server, subreddit, Minecraft "
                 "server, or website.",
-    color=light_blue
-).set_author(
-    name="Development Channels"
+    color=light_blue,
+    title="Development Channels"
 )
 
 # text_5
@@ -129,9 +124,8 @@ text_5 = discord.Embed(
                 "Specific: A voice channel for using user-made bots.\n"
                 "Music: Raise the roof.\n"
                 "AFK: Exit stage left, please.",
-    color=light_blue
-).set_author(
-    name="Voice Channels"
+    color=light_blue,
+    title="Voice Channels"
 )
 
 # heading_3
@@ -165,9 +159,8 @@ text_6 = discord.Embed(
                 "our front door remains clean.\n\n"
                 "[Click here to see who’s who on the Staff team.]"
                 "(https://www.ascendancyproject.com/about)",
-    color=light_blue
-).set_author(
-    name="Staff Roles"
+    color=light_blue,
+    title="Staff Roles"
 )
 
 # text_7
@@ -180,9 +173,8 @@ text_7 = discord.Embed(
                 "perks. These fantastic people are the "
                 "reason we’re able to have "
                 "as many custom emotes as you’d like!",
-    color=light_blue
-).set_author(
-    name="Server Booster"
+    color=light_blue,
+    title="Server Booster"
 )
 
 # text_8
@@ -194,9 +186,8 @@ text_8 = discord.Embed(
                 "to be dedicated to this project and to "
                 "them, we owe our most "
                 "sincere thanks.",
-    color=light_blue
-).set_author(
-    name="Member"
+    color=light_blue,
+    title="Member"
 )
 
 # heading_4
@@ -222,9 +213,8 @@ text_9 = discord.Embed(
                 "server, we expect there to be conflict and disagreements "
                 "between players. We also expect that you always remain civil "
                 "in your interactions with others.",
-    color=light_blue
-).set_author(
-    name="1. No harassment or personal attacks."
+    color=light_blue,
+    title="1. No harassment or personal attacks."
 )
 
 # text_10
@@ -249,9 +239,8 @@ text_10 = discord.Embed(
                 "must be reported to the Staff as soon as practicable. Any "
                 "distribution or public posting about replicating a bug or "
                 "exploit is not allowed.",
-    color=light_blue
-).set_author(
-    name="2. Be honest... but constructive. Do not exploit bugs."
+    color=light_blue,
+    title="2. Be honest... but constructive. Do not exploit bugs."
 )
 
 # text_11
@@ -264,9 +253,8 @@ text_11 = discord.Embed(
                 "the Discord server, subreddit, or Minecraft server "
                 "unpleasant for everyone else involved. Don't be that guy. "
                 "You know that guy... don't be him.",
-    color=light_blue
-).set_author(
-    name="3. No king of the ashes."
+    color=light_blue,
+    title="3. No king of the ashes."
 )
 
 # text_12
@@ -281,9 +269,8 @@ text_12 = discord.Embed(
                 "you must first submit a General Topics ticket in "
                 "<#736210100724826124> or utilize [the modmail feature]"
                 "(https://reddit.com/message/compose?to=/r/ascendancy).\n",
-    color=light_blue
-).set_author(
-    name="4. No promotion of any kind."
+    color=light_blue,
+    title="4. No promotion of any kind."
 )
 
 # text_13
@@ -291,7 +278,8 @@ text_13 = discord.Embed(
     description="**a.** Don't be rude. Don't spam. We have specific channels "
                 "on the Discord server and specific post flairs on the "
                 "subreddit: use them for their intended purposes.\n"
-                "**b.** If you are unsure if a certain topic might violate this rule, "
+                "**b.** If you are unsure if a certain topic might violate "
+                "this rule, "
                 "submit a General Topics ticket in <#736210100724826124> or "
                 "utilize [the modmail feature]"
                 "(https://reddit.com/message/compose?to=/r/ascendancy).\n"
@@ -302,9 +290,8 @@ text_13 = discord.Embed(
                 "suggestive quality depicting an individual who could "
                 "reasonably be interpreted as a minor is not allowed on "
                 "any of our services.",
-    color=light_blue
-).set_author(
-    name="5. No spamming. No NSFW content."
+    color=light_blue,
+    title="5. No spamming. No NSFW content."
 )
 
 # text_14
@@ -324,9 +311,8 @@ text_14 = discord.Embed(
                 "to connect to our Minecraft server.\n"
                 "**e.** You may not trade in-game goods or services for "
                 "out-of-game goods or services, or vice versa.",
-    color=light_blue
-).set_author(
-    name="6. Miscellaneous rules."
+    color=light_blue,
+    title="6. Miscellaneous rules."
 )
 
 # text_15
@@ -365,9 +351,8 @@ text_15 = discord.Embed(
                 "will not discuss bans publicly, and if you direct message a "
                 "Staff member on Discord regarding a punishment or appeal, it "
                 "will be ignored.",
-    color=light_blue
-).set_author(
-    name="Hammer to Fall"
+    color=light_blue,
+    title="Hammer to Fall"
 )
 
 # text_16
@@ -379,16 +364,28 @@ text_16 = discord.Embed(
                 "violations, in any of our channels or through "
                 "private message, is not permitted and will be treated "
                 "as harassment.",
-    color=light_blue
-).set_author(
-    name="Reporting Policy"
+    color=light_blue,
+    title="Reporting Policy"
+)
+
+# text_16_
+text_16_ = discord.Embed(
+    color=light_blue,
+    title="Support Us"
+).add_field(
+    name="Merch",
+    value="https://shop.ascendancyproject.com",
+    inline=False
+).add_field(
+    name="Donations",
+    value="https://paypal.me/ascendancyllc",
+    inline=False
 )
 
 # text_17
 text_17 = discord.Embed(
-    color=light_blue
-).set_author(
-    name="Minecraft Server"
+    color=light_blue,
+    title="Minecraft Server"
 ).add_field(
     name="Address",
     value="`civ.ascendancyproject.com`",
@@ -422,5 +419,6 @@ collection = (
     text_14,
     text_15,
     text_16,
+    text_16_,
     text_17
 )
