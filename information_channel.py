@@ -321,7 +321,7 @@ text_14 = discord.Embed(
     color=light_blue,
     title="6. Miscellaneous rules."
 )
-git
+
 # heading_m
 heading_m = discord.Embed(
     color=dark_blue
@@ -377,7 +377,7 @@ text_m8 = discord.Embed(
 
 # text_15
 text_15 = discord.Embed(
-    description="The Staff of Ascendancy: A Minecraft Civilization Project ",
+    description="The Staff of Ascendancy: A Minecraft Civilization Project "
                 "reserve the right to remove any player for any reason for "
                 "any length of time from the Discord server, subreddit, or "
                 "Minecraft server. Our rules and policies are up to the "
