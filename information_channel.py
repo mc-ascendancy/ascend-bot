@@ -326,7 +326,7 @@ text_14 = discord.Embed(
 heading_m = discord.Embed(
     color=dark_blue
 ).set_image(
-    url="https://cdn.discordapp.com/attachments/734102206860623883/734810661535612998/ARULES-01.png"
+    url="https://cdn.discordapp.com/attachments/734117420888883231/802007197818814494/MCRULES-01.png"
 )
 
 # heading_m_
