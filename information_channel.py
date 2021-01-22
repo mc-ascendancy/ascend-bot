@@ -321,7 +321,7 @@ text_14 = discord.Embed(
     color=light_blue,
     title="6. Miscellaneous rules."
 )
-
+git
 # heading_m
 heading_m = discord.Embed(
     color=dark_blue
