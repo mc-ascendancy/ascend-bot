@@ -81,7 +81,17 @@ async def on_message(message):
                     await message.add_reaction("<:mod:772893560949047378>")
 
         if random.randrange(420) == 69:
-            await message.add_reaction("<:famcat:788538192004775957>")
+            await message.add_reaction(
+                random.choice(
+                    (
+                        "<:famcat:788538192004775957>",
+                        "<:cavecat:799513208960319539>",
+                        "<:narcat:802448623740518410>",
+                        "<:sproutcat:802558578539233310>",
+                        "<:dragoncat:802560199801438228>"
+                    )
+                )
+            )
 
     await bot.process_commands(message)
 
