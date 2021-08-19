@@ -7,7 +7,7 @@ from commands import get_mods
 from prsaw import RandomStuff
 
 bot = config.bot
-rs = RandomStuff()
+# rs = RandomStuff()
 
 
 @bot.event
