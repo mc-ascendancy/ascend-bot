@@ -62,7 +62,7 @@ async def cease(ctx):
     sys.exit()
 
 
-def help_pages(mod):
+def get_help_pages(mod):
     commands_list = []
 
     for command in bot.commands:
@@ -131,7 +131,7 @@ bot.remove_command("help")
 @commands.cooldown(1, 5, type=commands.BucketType.user)
 @commands.max_concurrency(1, per=commands.BucketType.user)
 async def help_(ctx):
-    pages = help_pages(False)
+    pages = help_pages
     total_pages = len(pages)
 
     n = 0
@@ -196,7 +196,7 @@ async def mod_help(ctx):
     if ctx.author not in get_staff() and not await bot.is_owner(ctx.author):
         return
 
-    pages = help_pages(True)
+    pages = mod_help_pages
     total_pages = len(pages)
 
     n = 0
@@ -849,3 +849,7 @@ async def admin_stats_(_):
     # this is implemented on the instance
     # running on the Minecraft server
     return
+
+
+help_pages = get_help_pages(False)
+mod_help_pages = get_help_pages(True)

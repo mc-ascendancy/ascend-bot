@@ -6,6 +6,6 @@ import events
 import commands
 import tasks
 
-from config import bot, D_TOKEN
+from config import bot, TOKEN
 
-bot.run(D_TOKEN)
+bot.run(TOKEN)
