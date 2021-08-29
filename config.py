@@ -17,5 +17,12 @@ def set_bot():
         intents=intents
     )
 
+    bot.allowed_mentions = discord.AllowedMentions(
+        everyone=False,
+        users=True,
+        roles=False,
+        replied_user=True
+    )
+
 
 set_bot()
