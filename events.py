@@ -4,7 +4,7 @@ import random
 
 import config
 from commands import get_mods
-from prsaw import RandomStuff
+# from prsaw import RandomStuff
 
 bot = config.bot
 # rs = RandomStuff()
@@ -16,7 +16,7 @@ async def on_ready():
 
     tasks.clear_already_used.start()
     tasks.set_nickname.start()
-    tasks.plasma_bot_maintenance.start()
+    # tasks.plasma_bot_maintenance.start()
     tasks.refresh_ideas_polling.start()
 
     latency = round(bot.latency, 3) * 1000  # in ms to 3 d.p.
@@ -38,25 +38,25 @@ async def on_message(message):
     if message.author == bot.user:
         return
 
-    if bot.user in message.mentions:
-        
-        string = message.content.replace('<@!733399011230220300>', '')
-
-        print(string)
-
-        try:
-            async with message.channel.typing():
-                response = rs.get_ai_response(string)
-                await asyncio.sleep(len(response)/20)
-
-            if '@' in response:
-                await message.channel.send("I don't know what to say.")
-                return
-
-            await message.channel.send(response)
-
-        except discord.ext.commands.errors.CommandInvokeError:
-            await message.channel.send("I don't know what to say.")
+    # if bot.user in message.mentions:
+    #
+    #     string = message.content.replace('<@!733399011230220300>', '')
+    #
+    #     print(string)
+    #
+    #     try:
+    #         async with message.channel.typing():
+    #             response = rs.get_ai_response(string)
+    #             await asyncio.sleep(len(response)/20)
+    #
+    #         if '@' in response:
+    #             await message.channel.send("I don't know what to say.")
+    #             return
+    #
+    #         await message.channel.send(response)
+    #
+    #     except discord.ext.commands.errors.CommandInvokeError:
+    #         await message.channel.send("I don't know what to say.")
 
     if message.channel.id == 736325021856694385:  # ideas channel
         if not message.content.startswith(bot.command_prefix):
