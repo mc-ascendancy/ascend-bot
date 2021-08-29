@@ -9,7 +9,7 @@ def set_bot():
 
     global bot
 
-    intents = discord.Intents().default()
+    intents = discord.Intents.default()
     intents.members = True
 
     bot = commands.Bot(

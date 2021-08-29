@@ -229,9 +229,7 @@ async def mod_help(ctx):
 
                 await help_message.remove_reaction(reaction, user)
             elif str(reaction) == "◀️":
-                if n == 0:
-                    pass
-                else:
+                if n != 0:
                     n -= 1
 
                     await help_message.edit(embed=pages[n])
