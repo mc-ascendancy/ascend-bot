@@ -31,7 +31,7 @@ text_1 = discord.Embed(
                 "building the next generation of Minecraft Civilization-genre "
                 "servers with you!*\n\n"
                 "We invite you to [check out our website]"
-                "(https://www.ascendancyproject.com/) and "
+                "(https://ascendancy.wuzado.com/) and "
                 "[subreddit community]"
                 "(https://www.reddit.com/r/ascendancy/)!\n\n"
                 "Join us at `civ.ascendancyproject.com` (1.16.4).",
